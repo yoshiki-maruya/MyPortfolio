@@ -4,8 +4,11 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
-    <main>
-      <h1>Portfolio</h1>
+    <main className="col-span-4">
+      <div className="h-screen flex items-center justify-center flex-col">
+        <h1 className="text-5xl">Portfolio</h1>
+        <p className="flex-row">Yoshiki Maruya</p>
+      </div>
     </main>
   )
 }

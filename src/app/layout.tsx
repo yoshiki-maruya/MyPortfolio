@@ -1,3 +1,4 @@
+import Sidebar from "@/components/Sidebar";
 import "./globals.css";
 import Header from "@/components/Header";
 
@@ -17,8 +18,9 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className="font-body">
-        <Header />
+      <body className="font-body h-screen grid grid-cols-5">
+        {/* <Header /> */}
+        <Sidebar />
         {children}
       </body>
     </html>
