@@ -4,7 +4,7 @@ import CustomLink from "./atoms/CustomLink";
 
 const Header = () => {
   return (
-    <header className="grid grid-cols-9 place-items-center pt-2 pb-2 border-b-2 border-b-gray-500">
+    <header className="grid grid-cols-9 place-items-center pt-2 pb-2 border-b-2 border-b-gray-500 sticky top-0">
       <CustomLink className="col-start-4" href="/portfolio">
         <p>portfolio</p>
       </CustomLink>
