@@ -1,12 +1,17 @@
+import { EventHandler, SyntheticEvent } from "react";
 
 export interface ISideBarItem {
   text: string,
-  active: boolean,
+  active?: number,
+  index?: number,
+  onClick?: EventHandler<SyntheticEvent<Element>>,
 }
 
 const SidebarItem: React.FC<ISideBarItem> = ({
   text,
-  active
+  active,
+  index,
+  onClick,
 }) => {
   return (
     <li
@@ -15,11 +20,12 @@ const SidebarItem: React.FC<ISideBarItem> = ({
         font-medium rounded-md cursor-pointer
         transition-colors group
         ${
-          active
+          active === index
             ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
             : "hover:bg-indigo-50 text-gray-600"
         }
       `}
+      onClick={(event) => onClick && onClick(event)}
     >
       <span>
         {text}

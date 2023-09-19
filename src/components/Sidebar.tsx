@@ -2,11 +2,14 @@
 import sidebarList from "@/utils/const/sidebarList";
 import Image from "next/image";
 import SidebarItem from "./atoms/SidebarItem";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 
 const Sidebar: React.FC = () => {
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState<number>();
+  const handleItemClick = useCallback((index: number) => {
+    setActive(index);
+  }, [])
   return (
     <aside className="h-screen">
       <nav className="h-full grid grid-rows-6 bg-white border-r shadow-sm">
@@ -16,7 +19,13 @@ const Sidebar: React.FC = () => {
         {
           sidebarList.map((item, index) => {
             return (
-              <SidebarItem key={index} text={item} active={active} />
+              <SidebarItem
+                key={index}
+                text={item}
+                active={active}
+                index={index}
+                onClick={() => handleItemClick(index)}
+              />
             )
           })
         }
