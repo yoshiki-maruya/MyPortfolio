@@ -4,6 +4,7 @@ import Image from "next/image";
 import SidebarItem from "./atoms/SidebarItem";
 import { useState, useCallback } from "react";
 import { createUrl } from "@/utils/url";
+import Link from "next/link";
 
 
 const Sidebar: React.FC = () => {
@@ -15,7 +16,9 @@ const Sidebar: React.FC = () => {
     <aside className="h-full bg-white border-r shadow-sm">
       <nav className="grid grid-rows-6 gap-3">
         <div className="p-4 grid justify-center">
-          <Image className="rounded-full" src="/me.jpg" alt="me"  width="64" height="64" />
+          <Link href="/">
+            <Image className="rounded-full" src="/me.jpg" alt="me"  width="64" height="64" />
+          </Link>
         </div>
         {
           sidebarList.map((item, index) => {
