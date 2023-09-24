@@ -1,6 +1,6 @@
 const sidebarList = [
   "ABOUT ME",
-  "PORTFOLIO",
+  "WORKS",
   "BLOG",
   "CONTACT"
 ];

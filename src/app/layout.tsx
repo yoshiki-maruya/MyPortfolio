@@ -19,7 +19,6 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className="font-body h-screen grid grid-cols-5">
-        {/* <Header /> */}
         <Sidebar />
         {children}
       </body>

@@ -3,6 +3,7 @@ import sidebarList from "@/utils/const/sidebarList";
 import Image from "next/image";
 import SidebarItem from "./atoms/SidebarItem";
 import { useState, useCallback } from "react";
+import { createUrl } from "@/utils/url";
 
 
 const Sidebar: React.FC = () => {
@@ -24,6 +25,7 @@ const Sidebar: React.FC = () => {
                 text={item}
                 active={active}
                 index={index}
+                href={createUrl(item)}
                 onClick={() => handleItemClick(index)}
               />
             )
