@@ -11,9 +11,9 @@ const Sidebar: React.FC = () => {
     setActive(index);
   }, [])
   return (
-    <aside className="h-screen">
-      <nav className="h-full grid grid-rows-6 bg-white border-r shadow-sm">
-        <div className="p-4 pb-2 grid justify-center">
+    <aside className="h-full bg-white border-r shadow-sm">
+      <nav className="grid grid-rows-6 gap-3">
+        <div className="p-4 grid justify-center">
           <Image className="rounded-full" src="/me.jpg" alt="me"  width="64" height="64" />
         </div>
         {
