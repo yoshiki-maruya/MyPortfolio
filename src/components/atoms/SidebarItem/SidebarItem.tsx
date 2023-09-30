@@ -3,7 +3,7 @@ import Link from "next/link";
 import { EventHandler, SyntheticEvent } from "react";
 
 export interface ISideBarItem {
-  text: string,
+  text?: string,
   active?: number,
   index?: number,
   href: Url,

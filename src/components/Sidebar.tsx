@@ -1,7 +1,7 @@
 'use client';
 import sidebarList from "@/utils/const/sidebarList";
 import Image from "next/image";
-import SidebarItem from "./atoms/SidebarItem";
+import SidebarItem from "./atoms/SidebarItem/SidebarItem";
 import { useState, useCallback } from "react";
 import { createUrl } from "@/utils/url";
 import Link from "next/link";
