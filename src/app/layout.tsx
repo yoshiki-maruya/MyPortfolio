@@ -18,7 +18,7 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className="font-body h-screen grid grid-cols-5">
+      <body className="font-body h-screen grid grid-cols-5 hidden-scrollbar">
         <Sidebar />
         {children}
       </body>
