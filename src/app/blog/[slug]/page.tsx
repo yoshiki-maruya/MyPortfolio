@@ -1,7 +1,6 @@
 import { allPosts } from 'contentlayer/generated';
 import { format, parseISO } from 'date-fns';
 import type { MDXComponents } from 'mdx/types';
-import type { Metadata } from 'next';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import NextImage from 'next/image';
 import Link from 'next/link';
@@ -16,25 +15,39 @@ export async function generateStaticParams() {
 export const generateMetadata = ({ params }: { params: { slug: string } }) => {
   const post = allPosts.find((post) => post._raw.flattenedPath === params.slug)
   if (!post) throw new Error(`Post not found for slug: ${params.slug}`)
+  const { title, description, date, url } = post
   return {
-    title: post.title,
-    description: post.description
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+      publishedTime: date,
+      url: `http://localhost:3000/blog/${url}`,
+    },
   }
+}
+
+const mdxComponents: MDXComponents = {
+  a: ({ href, children }) => <Link href={href as string}>{children}</Link>,
+  Image: (props) => <NextImage className="rounded-lg" {...props} />,
 }
 
 export default function PostLayout({ params }: { params: { slug: string } }) {
   const post = allPosts.find((post) => post._raw.flattenedPath === params.slug)
-  if (!post) throw new Error(`Post not found for slug: ${params.slug}`)
+  if (!post) notFound()
+  const MDXContent = useMDXComponent(post.body.code)
 
   return (
-    <article className="col-span-4 overflow-auto mx-auto max-w-xl py-8">
-      <div className="mb-8 text-center">
-        <time dateTime={post.date} className="mb-1 text-xs text-gray-600">
-          {format(parseISO(post.date), 'LLLL d, yyyy')}
-        </time>
-        <h1 className="text-3xl font-bold">{post.title}</h1>
-      </div>
-      <div className="[&>*]:mb-3 [&>*:last-child]:mb-0" dangerouslySetInnerHTML={{ __html: post.body.html }} />
-    </article>
+    <div className="col-span-4 overflow-auto mx-auto max-w-xl py-8">
+      <h1>{post.title}</h1>
+      <time className="my-4 block text-sm text-zinc-400" dateTime={post.date}>
+        {format(parseISO(post.date), 'LLLL d, yyyy')}
+      </time>
+      <article className="prose dark:prose-invert">
+        <MDXContent components={mdxComponents} />
+      </article>
+    </div>
   )
 }

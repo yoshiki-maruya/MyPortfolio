@@ -9,51 +9,69 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    fontFamily: {
-      body: [
-        'Avenir',
-        'Helvetica Neue',
-        'Helvetica',
-        'Arial',
-        'Hiragino Sans',
-        'ヒラギノ角ゴシック',
-        'メイリオ',
-        'Meiryo',
-        'YuGothic',
-        'Yu Gothic',
-        'ＭＳ Ｐゴシック',
-        'MS PGothic',
-        'sans-serif'
-      ]
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: {
+        '2xl': '1400px',
+      },
     },
     extend: {
-      animation: {
-        "focus-in-contract": "focus-in-contract 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940), blur-out-expand 2s cubic-bezier(0.250, 0.460, 0.450, 0.940) 3s    both",
+      colors: {
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
       },
       keyframes: {
-        "focus-in-contract": {
-          "0%": {
-            "letter-spacing": "1em",
-            filter: "blur(12px)",
-            opacity: "0"
-          },
-          to: {
-            filter: "blur(0)",
-            opacity: "1"
-          }
+        'accordion-down': {
+          from: { height: 0 },
+          to: { height: 'var(--radix-accordion-content-height)' },
         },
-        "blur-out-expand": {
-          "0%": {
-            opacity: "1"
-          },
-          to: {
-            "letter-spacing": "1em",
-            filter: "blur(12px) opacity(0%)",
-            "display": "none",
-          }
-      }
-      }
-    }
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: 0 },
+        },
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+    },
   },
-  plugins: [],
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 }

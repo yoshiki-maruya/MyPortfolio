@@ -16,4 +16,5 @@ module.exports = {
   htmlWhitespaceSensitivity: "css",
   endOfLine: "lf",
   embeddedLanguageFormatting: "off",
+  plugins: ['prettier-plugin-tailwindcss'],
 }
