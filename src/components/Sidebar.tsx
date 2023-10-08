@@ -2,16 +2,22 @@
 import sidebarList from "@/utils/const/sidebarList";
 import Image from "next/image";
 import SidebarItem from "./atoms/SidebarItem/SidebarItem";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { createUrl } from "@/utils/url";
 import Link from "next/link";
+import { usePathname } from 'next/navigation';
 
 
 const Sidebar: React.FC = () => {
-  const [active, setActive] = useState<number>();
+  const [active, setActive] = useState<number | null>(null);
+  const pathname = usePathname();
   const handleItemClick = useCallback((index: number) => {
     setActive(index);
   }, [])
+
+  useEffect(() => {
+    if (pathname === '/') setActive(null);
+  }, [pathname])
   return (
     <aside className="h-full bg-white border-r shadow-sm">
       <nav className="grid grid-rows-6 gap-3">

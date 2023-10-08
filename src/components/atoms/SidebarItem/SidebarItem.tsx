@@ -4,7 +4,7 @@ import { EventHandler, SyntheticEvent } from "react";
 
 export interface ISideBarItem {
   text?: string,
-  active?: number,
+  active?: number | null,
   index?: number,
   href: Url,
   onClick?: EventHandler<SyntheticEvent<Element>>,

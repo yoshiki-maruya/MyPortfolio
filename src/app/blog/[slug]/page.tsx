@@ -40,14 +40,16 @@ export default function PostLayout({ params }: { params: { slug: string } }) {
   const MDXContent = useMDXComponent(post.body.code)
 
   return (
-    <div className="col-span-4 overflow-auto mx-auto max-w-xl py-8">
-      <h1>{post.title}</h1>
-      <time className="my-4 block text-sm text-zinc-400" dateTime={post.date}>
-        {format(parseISO(post.date), 'LLLL d, yyyy')}
-      </time>
-      <article className="prose dark:prose-invert">
-        <MDXContent components={mdxComponents} />
-      </article>
+    <div className="col-span-4 overflow-auto py-8">
+      <div className='mx-auto max-w-xl'>
+        <h1>{post.title}</h1>
+        <time className="my-4 block text-sm text-zinc-400" dateTime={post.date}>
+          {format(parseISO(post.date), 'LLLL d, yyyy')}
+        </time>
+        <article className="prose dark:prose-invert">
+          <MDXContent components={mdxComponents} />
+        </article>
+      </div>
     </div>
   )
 }
