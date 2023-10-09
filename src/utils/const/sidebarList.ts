@@ -1,5 +1,5 @@
 const sidebarList = [
-  "ABOUT ME",
+  "ABOUT",
   "WORKS",
   "BLOG",
   "CONTACT"

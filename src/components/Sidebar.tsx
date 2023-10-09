@@ -1,12 +1,17 @@
 'use client';
 import sidebarList from "@/utils/const/sidebarList";
-import Image from "next/image";
 import SidebarItem from "./atoms/SidebarItem/SidebarItem";
 import { useState, useCallback, useEffect } from "react";
 import { createUrl } from "@/utils/url";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
+import { Noto_Sans_JP } from 'next/font/google'
 
+const notojp = Noto_Sans_JP({
+  weight: ["400", "500"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 const Sidebar: React.FC = () => {
   const [active, setActive] = useState<number | null>(null);
@@ -20,10 +25,10 @@ const Sidebar: React.FC = () => {
   }, [pathname])
   return (
     <aside className="h-full bg-white border-r shadow-sm">
-      <nav className="grid grid-rows-6 gap-3">
+      <nav className="grid grid-rows-5 gap-3 py-4">
         <div className="p-4 grid justify-center">
           <Link href="/">
-            <Image className="rounded-full" src="/me.jpg" alt="me"  width="64" height="64" />
+            <h2 className={notojp.className}>MyCanvas</h2>
           </Link>
         </div>
         {

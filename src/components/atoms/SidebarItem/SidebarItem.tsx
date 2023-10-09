@@ -20,7 +20,7 @@ const SidebarItem: React.FC<ISideBarItem> = ({
   return (
     <Link
       className={`
-        relative flex items-center py-2 px-3 my-1.5
+        relative flex items-center py-5 px-3 my-1.5
         font-medium rounded-md cursor-pointer
         transition-colors group
         ${active === index
