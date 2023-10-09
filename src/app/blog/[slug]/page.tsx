@@ -24,7 +24,7 @@ export const generateMetadata = ({ params }: { params: { slug: string } }) => {
       description,
       type: 'article',
       publishedTime: date,
-      url: `http://localhost:3000/blog/${url}`,
+      url: `${process.env.WEBSITE_HOST_URL}/blog/${url}`,
     },
   }
 }
@@ -38,7 +38,6 @@ export default function PostLayout({ params }: { params: { slug: string } }) {
   const post = allPosts.find((post) => post._raw.flattenedPath === params.slug)
   if (!post) notFound()
   const MDXContent = useMDXComponent(post.body.code)
-
   return (
     <div className='mx-auto max-w-xl py-8'>
       <h1>{post.title}</h1>
