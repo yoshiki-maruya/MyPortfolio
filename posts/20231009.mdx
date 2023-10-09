@@ -1,0 +1,59 @@
+---
+title: TypeScriptで辞書型を表現してみよう
+description: TypescriptでDictionary型を自作する
+date: 2023-10-09
+---
+
+## はじめに
+業務でReactを使用している際に、以下のような形で辞書型を記述していたのですが、もう少し汎用的にしたほうがメンテナンスもしやすいか？と思い立ったのがきっかけになります。
+``` TypeScript
+const carID: { [carName: string]: string } = {};
+```
+
+## 辞書型（連想配列、ハッシュマップ）とは
+配列やリストは、インデックス情報をもとに値を取り出すことができますが、辞書型はキーバリューのセットであるためキーをもとに値を取り出します。
+メリットとしては、以下が挙げられます。（配列との比較）
+- 高速な検索
+    - 配列は要素検索時に中身を走査するケースが主ですが、辞書型はキーを使用して値を直接取得できるため、要素が増えても一貫して高速です。
+- 可読性向上
+    - 配列のインデックスは、基本的に意味を持ちませんが、辞書型はキーに意味をつけることができます。これにより可読性向上が狙えます。
+
+## 辞書型を定義する
+結論以下のようにしました。.NETをよく使うので名前はDictionary！
+``` TypeScript
+type Dictionary<TKey extends string | number | symbol, TValue> = {
+    [key in TKey]: TValue;
+};
+
+export default Dictionary;
+```
+
+**使用例**
+``` TypeScript
+interface ICar {
+    carID: Dictionary<string, string>
+}
+
+const carList: ICar = {
+    carID: {
+        "lexus": "001",
+        "prius": "002"
+    }
+}
+
+const getCarID = (data: ICar): Dictionary<string, string> =>{
+    const carData = data;
+    return carData.carID;
+}
+
+console.log(getCarID(carList));
+// 以下出力結果
+[LOG]: {
+  "lexus": "001",
+  "prius": "002"
+}
+```
+
+## まとめ
+今回は辞書型をより汎用的な形で記述できるようにDictionaryという型エイリアスを作成しました。
+拙い使用例でしたが、一般化したことで記述が楽になり、扱いやすくはなったのかなと思います。

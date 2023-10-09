@@ -20,7 +20,9 @@ export default function RootLayout({
       </head>
       <body className="font-body h-screen grid grid-cols-5 hidden-scrollbar">
         <Sidebar />
-        {children}
+        <main className="col-span-4 overflow-auto">
+          {children}
+        </main>
       </body>
     </html>
   );

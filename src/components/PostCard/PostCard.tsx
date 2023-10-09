@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const PostCard = (post: Post) => {
   return (
-    <article className="flex flex-col items-start justify-between">
+    <article className="flex flex-col items-start justify-between py-6">
       <div className="flex items-center gap-x-4 text-xs">
         <time dateTime={post.date}>
           {format(parseISO(post.date), 'LLLL d, yyyy')}
@@ -17,7 +17,7 @@ const PostCard = (post: Post) => {
             {post.title}
           </Link>
         </h3>
-        <p className="mt-5 line-clamp-3 text-sm leading-6">
+        <p className="mt-5 line-clamp-3 text-sm leading-4">
           {post.description}
         </p>
       </div>
