@@ -1,8 +1,8 @@
+'use client'
 import Sidebar from "@/components/Sidebar";
 import "./globals.css";
-import Header from "@/components/Header";
-import { isBrowser, isMobile } from "react-device-detect";
 import HumbergerHeader from "@/components/HambergerHeader";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 export const metadata = {
   title: "Create Next App",
@@ -14,6 +14,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const isPC = useMediaQuery(768)
   return (
     <html lang="ja">
       <head>
@@ -21,23 +22,22 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       {
-        isMobile && (
-          <body className="">
-            <HumbergerHeader />
-            <main className="col-span-4 overflow-auto">
-              {children}
-            </main>
-          </body>
-        )
-      }
-      {
-        isBrowser && (
+        isPC ? (
           <body className="font-body h-screen grid grid-cols-5 hidden-scrollbar">
             <Sidebar />
             <main className="col-span-4 overflow-auto">
               {children}
             </main>
           </body>
+        )
+        :
+        (
+          <body className="">
+          <HumbergerHeader />
+          <main className="col-span-4 overflow-auto">
+            {children}
+          </main>
+        </body>
         )
       }
     </html>

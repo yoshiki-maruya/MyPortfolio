@@ -39,7 +39,7 @@ export default function PostLayout({ params }: { params: { slug: string } }) {
   if (!post) notFound()
   const MDXContent = useMDXComponent(post.body.code)
   return (
-    <div className='mx-auto max-w-xl py-8'>
+    <div className='mx-auto max-w-xl px-6 py-8'>
       <h1>{post.title}</h1>
       <time className="my-4 block text-sm text-zinc-400" dateTime={post.date}>
         {format(parseISO(post.date), 'LLLL d, yyyy')}
