@@ -1,6 +1,8 @@
 import Sidebar from "@/components/Sidebar";
 import "./globals.css";
 import Header from "@/components/Header";
+import { isBrowser, isMobile } from "react-device-detect";
+import HumbergerHeader from "@/components/HambergerHeader";
 
 export const metadata = {
   title: "Create Next App",
@@ -18,12 +20,26 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className="font-body h-screen grid grid-cols-5 hidden-scrollbar">
-        <Sidebar />
-        <main className="col-span-4 overflow-auto">
-          {children}
-        </main>
-      </body>
+      {
+        isMobile && (
+          <body className="">
+            <HumbergerHeader />
+            <main className="col-span-4 overflow-auto">
+              {children}
+            </main>
+          </body>
+        )
+      }
+      {
+        isBrowser && (
+          <body className="font-body h-screen grid grid-cols-5 hidden-scrollbar">
+            <Sidebar />
+            <main className="col-span-4 overflow-auto">
+              {children}
+            </main>
+          </body>
+        )
+      }
     </html>
   );
 }

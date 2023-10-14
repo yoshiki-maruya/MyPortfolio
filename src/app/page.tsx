@@ -16,9 +16,9 @@ export default function Home() {
 
   return (
     <>
-      <div className="h-72 grid grid-cols-2 mx-auto max-w-2xl py-8 content-center place-items-center">
+      <div className="h-72 grid grid-cols-2 gap-x-4 mx-auto max-w-2xl px-6 py-8 content-center place-items-center">
         <div>
-          <Image className="rounded-full" src="/me.jpg" alt="me"  width="200" height="200" />
+          <Image className="rounded-full border-4" src="/me.jpg" alt="me"  width="200" height="200" />
         </div>
         <div>
           <h3>I&apos;m Software Developer</h3>
@@ -26,7 +26,7 @@ export default function Home() {
           <h3>I&apos;m Investor</h3>
         </div>
       </div>
-      <div className="mx-auto max-w-xl py-8">
+      <div className="mx-auto max-w-xl px-6 py-8">
         <h1 className="mb-8 text-center text-2xl font-black">Popular Blog</h1>
         {posts.map((post, idx) => (
           <PostCard key={idx} {...post} />

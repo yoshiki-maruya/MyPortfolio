@@ -6,6 +6,6 @@ import { describe, it, expect } from '@jest/globals';
 describe("page.tsx", () => {
   it ("should display page", () => {
     render(<Home />);
-    expect(screen.getByText('Portfolio'));
+    expect(screen.getByText("I'm Software Developer"));
   })
 })
