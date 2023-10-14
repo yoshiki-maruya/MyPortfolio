@@ -1,7 +1,7 @@
 'use client'
 import useMediaQuery from "@/hooks/useMediaQuery"
 import Sidebar from "./Sidebar"
-import HumbergerHeader from "./HambergerHeader"
+import Header from "./Header"
 
 const Container = ({ children }: { children: React.ReactNode }) => {
   const isPC = useMediaQuery(768)
@@ -19,7 +19,7 @@ const Container = ({ children }: { children: React.ReactNode }) => {
         :
         (
           <body className="md:hidden">
-            <HumbergerHeader />
+            <Header />
             <main className="col-span-4 overflow-auto">
               {children}
             </main>

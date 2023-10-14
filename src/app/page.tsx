@@ -21,9 +21,9 @@ export default function Home() {
           <Image className="rounded-full border-4" src="/me.jpg" alt="me"  width="200" height="200" />
         </div>
         <div>
-          <h3>I&apos;m Software Developer</h3>
-          <h3>I&apos;m IT Consultant</h3>
-          <h3>I&apos;m Investor</h3>
+          <h3>・I&apos;m Software Developer</h3>
+          <h3>・I&apos;m IT Consultant</h3>
+          <h3>・I&apos;m Investor</h3>
         </div>
       </div>
       <div className="mx-auto max-w-xl px-6 py-8">
