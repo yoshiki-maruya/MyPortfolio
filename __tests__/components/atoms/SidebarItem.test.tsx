@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/jest-globals';
-import SidebarItem from './SidebarItem';
+import SidebarItem from '../../../src/components/atoms/SidebarItem';
 import { describe, it, expect } from '@jest/globals';
 
 describe('SidebarItem', () => {

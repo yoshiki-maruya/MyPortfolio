@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { compareDesc } from 'date-fns';
 import { allPosts } from 'contentlayer/generated';
-import PostCard from '@/components/PostCard/PostCard';
+import PostCard from '@/components/PostCard';
 import Image from "next/image";
 
 export const metadata: Metadata = {

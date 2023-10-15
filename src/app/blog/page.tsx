@@ -1,6 +1,6 @@
 import { compareDesc } from 'date-fns';
 import { allPosts } from 'contentlayer/generated';
-import PostCard from '@/components/PostCard/PostCard';
+import PostCard from '@/components/PostCard';
 
 export default function Blog() {
   const posts = allPosts.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
