@@ -24,7 +24,7 @@ const Sidebar: React.FC = () => {
     if (pathname === '/') setActive(null);
   }, [pathname])
   return (
-    <aside className="h-full bg-white border-r shadow-sm">
+    <aside className="h-full bg-white border-r shadow-sm col-span-3">
       <nav className="grid grid-rows-5 gap-3 py-4">
         <div className="p-4 grid justify-center">
           <Link href="/">

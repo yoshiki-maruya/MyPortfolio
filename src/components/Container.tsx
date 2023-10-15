@@ -9,9 +9,9 @@ const Container = ({ children }: { children: React.ReactNode }) => {
     <>
       {
         isPC ? (
-          <body className="font-body h-screen grid grid-cols-5 hidden-scrollbar max-md:hidden">
+          <body className="font-body h-screen grid grid-cols-12 hidden-scrollbar max-md:hidden">
             <Sidebar />
-            <main className="col-span-4 overflow-auto">
+            <main className="col-span-9 overflow-auto">
               {children}
             </main>
           </body>
