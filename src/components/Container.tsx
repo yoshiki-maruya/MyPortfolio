@@ -20,7 +20,7 @@ const Container = ({ children }: { children: React.ReactNode }) => {
         (
           <body className="md:hidden">
             <Header />
-            <main className="col-span-4 overflow-auto">
+            <main className="col-span-4">
               {children}
             </main>
           </body>
