@@ -50,24 +50,32 @@ const Header = () => {
         />
       </button>
 
+      <div
+        className={
+          openMenu
+            ? "text-right fixed left-0 top-0 w-4/12 h-screen flex flex-col justify-start pt-8 px-3"
+            : "fixed left-[-100%]"
+        }
+        onClick={handleMenuOpen}
+      ></div>
       <nav
         className={
           openMenu
-            ? "text-left fixed z-10 bg-slate-50 right-0 top-0 w-8/12 h-screen flex flex-col justify-start pt-8 px-3 ease-linear duration-300"
+            ? "text-left fixed bg-slate-50 z-10 right-0 top-0 w-8/12 h-screen flex flex-col justify-start pt-8 px-3 ease-linear duration-300"
             : "fixed right-[-100%] ease-linear duration-300"
         }
       >
-        <ul className="mt-6">
-          <CustomLink className="text-xs" href="/about">
+        <ul className="grid grid-rows-4 gap-10 justify-items-center mt-10">
+          <CustomLink href="/about" onClick={handleMenuOpen}>
             <p>ABOUT</p>
           </CustomLink>
-          <CustomLink className="text-xs" href="/works">
+          <CustomLink href="/works" onClick={handleMenuOpen}>
             <p>WORKS</p>
           </CustomLink>
-          <CustomLink className="text-xs" href="/blog">
+          <CustomLink href="/blog" onClick={handleMenuOpen}>
             <p>BLOG</p>
           </CustomLink>
-          <CustomLink className="text-xs" href="/contact">
+          <CustomLink href="/contact" onClick={handleMenuOpen}>
             <p>CONTACT</p>
           </CustomLink>
         </ul>
