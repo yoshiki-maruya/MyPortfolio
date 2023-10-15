@@ -7,7 +7,7 @@ const useMediaQuery: UseMediaQueryType = (width) => {
   const [targetReached, setTargetReached] = useState(false)
 
   const updateTarget = () => {
-    setTargetReached(window.innerWidth > width)
+    setTargetReached(window.innerWidth >= width)
   }
 
   useEffect(() => {
