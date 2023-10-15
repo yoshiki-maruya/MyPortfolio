@@ -10,17 +10,16 @@ const PostCard = (post: Post) => {
           {format(parseISO(post.date), 'LLLL d, yyyy')}
         </time>
       </div>
-      <div className="group relative">
-        <h3 className="mt-3 text-lg font-semibold leading-6">
-          <Link className="link" href={post.url}>
-            <span className="absolute inset-0" />
-            {post.title}
-          </Link>
-        </h3>
-        <p className="mt-5 line-clamp-3 text-sm leading-4">
-          {post.description}
-        </p>
-      </div>
+      <Link className="link" href={post.url}>
+        <div className="group relative">
+          <h3 className="mt-2 text-lg font-semibold">
+            <p className="relative -z-10">{post.title}</p>
+          </h3>
+          <p className="relative -z-10 mt-5 line-clamp-3 text-sm leading-4">
+            {post.description}
+          </p>
+        </div>
+      </Link>
     </article>
   );
 }

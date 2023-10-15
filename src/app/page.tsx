@@ -24,7 +24,7 @@ export default function Home() {
           <h3>・I&apos;m Investor</h3>
         </div>
       </div>
-      <div className="mx-auto max-w-xl px-6 py-8">
+      <div className="mx-auto max-w-lg px-6 py-8">
         <h1 className="mb-8 text-center text-2xl font-black">Popular Blog</h1>
         {posts.map((post, idx) => (
           <PostCard key={idx} {...post} />
