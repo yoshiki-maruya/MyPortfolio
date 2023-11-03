@@ -1,9 +1,10 @@
 import { Url } from "next/dist/shared/lib/router/router";
 import Link from "next/link";
-import { EventHandler, SyntheticEvent } from "react";
+import { EventHandler, ReactNode, SyntheticEvent } from "react";
 
 export interface ISideBarItem {
   text?: string,
+  icon?: ReactNode,
   active?: number | null,
   index?: number,
   href: Url,
@@ -12,6 +13,7 @@ export interface ISideBarItem {
 
 const SidebarItem: React.FC<ISideBarItem> = ({
   text,
+  icon,
   active,
   index,
   href,
@@ -31,8 +33,8 @@ const SidebarItem: React.FC<ISideBarItem> = ({
       onClick={(event) => onClick && onClick(event)}
       href={href}
     >
-      <span>
-        {text}
+      <span className="flex gap-2">
+        {icon}{text}
       </span>
     </Link>
   )

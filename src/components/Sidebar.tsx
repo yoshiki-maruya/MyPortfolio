@@ -1,11 +1,13 @@
 'use client';
 import sidebarList from "@/utils/const/sidebarList";
+import iconList from "@/utils/const/iconList";
 import SidebarItem from "./atoms/SidebarItem";
 import { useState, useCallback, useEffect } from "react";
 import { createUrl } from "@/utils/url";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { Noto_Sans_JP } from 'next/font/google'
+import Icon from "./atoms/Icon";
 
 const notojp = Noto_Sans_JP({
   weight: ["400", "500"],
@@ -37,6 +39,7 @@ const Sidebar: React.FC = () => {
               <SidebarItem
                 key={index}
                 text={item}
+                icon={<Icon name={iconList[index]} />}
                 active={active}
                 index={index}
                 href={createUrl(item)}
