@@ -19,7 +19,7 @@ const PostCard = (post: Post) => {
           <p className="relative -z-10 mt-5 line-clamp-3 text-sm leading-4">
             {post.description}
           </p>
-          <div className="flex gap-2 mt-2">
+          <div className="flex gap-2 mt-2 relative -z-10">
             {
               post.tags.map((tag, idx) => (
                 <Tag key={idx} tag={tag} />
