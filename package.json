@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "prettier": "prettier --write \"src/**/*.{ts,tsx}\"",
     "test": "jest --watch",
     "test:ci": "jest --ci"
   },
