@@ -2,12 +2,23 @@ import type { Metadata } from 'next';
 import { compareDesc } from 'date-fns';
 import { allPosts } from 'contentlayer/generated';
 import PostCard from '@/components/PostCard';
-import Image from "next/image";
 import HomeAbout from '@/components/HomeAbout';
 
 export const metadata: Metadata = {
-  title: "Yoshiki's Portfolio",
-  description: 'Intro, Works, Blog, etc.',
+  metadataBase: new URL(process.env.WEBSITE_HOST_URL ?? ""),
+  title: "MyCanvas",
+  description: "MyCanvasは自分の好きなことを好きに表現するサイトです。メインはプログラミング関係のブログ記事や個人開発したサービスの紹介になります。",
+  applicationName: "MyCanvas",
+  authors: { name: "Yoshiki Maruya" },
+  keywords: ["プログラミング", "ブログ", "投資", "個人開発"],
+  creator: "Yoshiki Maruya",
+  publisher: "Yoshiki Maruya",
+  openGraph: {
+    type: "website",
+    title: "MyCanvas",
+    description: 'MyCanvasは自分の好きなことを好きに表現するサイトです。メインはプログラミング関係のブログ記事や個人開発したサービスの紹介になります。',
+    siteName: "MyCanvas"
+  }
 }
 
 export default function Home() {

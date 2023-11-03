@@ -15,10 +15,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const post = allPosts.find((post) => post._raw.flattenedPath === params.slug)
   if (!post) throw new Error(`Post not found for slug: ${params.slug}`)
-  const { title, description, date, url } = post
+  const { title, description, date, url, tags } = post
   return {
     title,
     description,
+    keywords: tags,
     openGraph: {
       title,
       description,
