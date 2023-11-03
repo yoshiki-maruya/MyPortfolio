@@ -1,23 +1,23 @@
-'use client'
-import { useEffect, useState } from 'react'
+"use client";
+import { useEffect, useState } from "react";
 
-type UseMediaQueryType = (width: number) => boolean
+type UseMediaQueryType = (width: number) => boolean;
 
 const useMediaQuery: UseMediaQueryType = (width) => {
-  const [targetReached, setTargetReached] = useState(false)
+  const [targetReached, setTargetReached] = useState(false);
 
   const updateTarget = () => {
-    setTargetReached(window.innerWidth >= width)
-  }
+    setTargetReached(window.innerWidth >= width);
+  };
 
   useEffect(() => {
-    updateTarget()
-    window.addEventListener('resize', updateTarget)
-    return () => window.removeEventListener('resize', updateTarget)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    updateTarget();
+    window.addEventListener("resize", updateTarget);
+    return () => window.removeEventListener("resize", updateTarget);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  return targetReached
-}
+  return targetReached;
+};
 
-export default useMediaQuery
+export default useMediaQuery;
