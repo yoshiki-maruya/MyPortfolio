@@ -1,7 +1,7 @@
 import { Post } from "contentlayer/generated";
 import { format, parseISO } from "date-fns";
 import Link from "next/link";
-import Tag from "./atoms/Tag";
+import Tag from "../atoms/Tag";
 
 const PostCard = (post: Post) => {
   return (
