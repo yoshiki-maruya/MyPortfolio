@@ -17,7 +17,7 @@ const Header = () => {
     setOpenMenu(!openMenu);
   };
   return (
-    <header className="sticky top-0 flex justify-between border-b-2 border-b-gray-300 bg-white px-6 py-3">
+    <header className="sticky top-0 z-10 flex justify-between border-b-2 border-b-gray-300 bg-white px-6 py-3">
       <Link href="/">
         <h2 className={notojp.className}>MyCanvas</h2>
       </Link>
