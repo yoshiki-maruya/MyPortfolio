@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="7" failures="0" errors="0" time="0.751">
+  <testsuite name="Sidebar" errors="0" failures="0" skipped="0" timestamp="2023-11-04T06:32:33" time="0.323" tests="1">
+    <testcase classname="Sidebar-should show siteName" name="Sidebar-should show siteName" time="0.016">
+    </testcase>
+  </testsuite>
+  <testsuite name="SidebarItem" errors="0" failures="0" skipped="0" timestamp="2023-11-04T06:32:33" time="0.115" tests="1">
+    <testcase classname="SidebarItem › when text is undefined-should not show text" name="SidebarItem › when text is undefined-should not show text" time="0.008">
+    </testcase>
+  </testsuite>
+  <testsuite name="utilities/number" errors="0" failures="0" skipped="0" timestamp="2023-11-04T06:32:33" time="0.074" tests="5">
+    <testcase classname="utilities/number › makePositiveInt › when the num is NaN-should return 0" name="utilities/number › makePositiveInt › when the num is NaN-should return 0" time="0.001">
+    </testcase>
+    <testcase classname="utilities/number › makePositiveInt › when the num is a positive integer-should return the num" name="utilities/number › makePositiveInt › when the num is a positive integer-should return the num" time="0">
+    </testcase>
+    <testcase classname="utilities/number › makePositiveInt › when the num is a negative value-should make it positive" name="utilities/number › makePositiveInt › when the num is a negative value-should make it positive" time="0">
+    </testcase>
+    <testcase classname="utilities/number › makePositiveInt › when the num is a negative value › when the num is a float value-should make it positive and rounded integer" name="utilities/number › makePositiveInt › when the num is a negative value › when the num is a float value-should make it positive and rounded integer" time="0">
+    </testcase>
+    <testcase classname="utilities/number › makePositiveInt › when the num is a float value-should make it rounded integer" name="utilities/number › makePositiveInt › when the num is a float value-should make it rounded integer" time="0">
+    </testcase>
+  </testsuite>
+</testsuites>
