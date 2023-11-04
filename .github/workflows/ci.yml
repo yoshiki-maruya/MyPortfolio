@@ -26,3 +26,13 @@ jobs:
       
       - name: prettier-code
         run: npm run prettier
+
+      - name: jest-testing
+        run: npm run test
+        
+      - name: "upload test-results"
+        uses: actions/upload-artifact@v3
+        if: success() || failure()
+        with:
+          name: test-results
+          path: jest-junit.xml

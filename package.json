@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier --write \"src/**/*.{ts,tsx}\"",
-    "test": "jest --watch",
+    "test": "jest",
     "test:ci": "jest --ci"
   },
   "dependencies": {
