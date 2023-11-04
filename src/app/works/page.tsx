@@ -4,7 +4,10 @@ import Link from "next/link";
 export default function Works() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-8">
-      <h1 className="mb-12 text-center text-2xl font-black">Works</h1>
+      <h1 className="mb-8 text-center text-2xl font-black">Works</h1>
+      <p className="text-lg">
+        個人やチームで開発したプロダクトの紹介です。リンクからサービスページに飛べるのでよかったら使用してみてください。
+      </p>
       <WorksCard title="ReportAI" imagePath="/ReportAI.png" alt="ReportAIのロゴ">
         ReportAIは、大学生の課題やレポートの作成を手伝うAIサービスです。
         <br />
