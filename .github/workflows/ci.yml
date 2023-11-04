@@ -1,4 +1,4 @@
-name: ci
+name: CI
 on:
   push:
     branches: [ main ]
@@ -28,11 +28,11 @@ jobs:
         run: npm run prettier
 
       - name: jest-testing
-        run: npm run test
+        run: npm run test:ci
         
       - name: "upload test-results"
         uses: actions/upload-artifact@v3
         if: success() || failure()
         with:
           name: test-results
-          path: jest-junit.xml
+          path: test-results/jest-junit.xml
