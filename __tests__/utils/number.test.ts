@@ -1,4 +1,4 @@
-import { makePositiveInt } from "./number";
+import { makePositiveInt } from "@/utils/number";
 import { describe, it, expect } from "@jest/globals";
 
 describe("utilities/number", () => {
