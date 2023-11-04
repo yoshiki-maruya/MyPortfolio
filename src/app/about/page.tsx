@@ -1,4 +1,4 @@
-import AboutCard from "@/components/AboutCard";
+import AboutCard from "@/components/molecules/AboutCard";
 import HomeAbout from "@/components/HomeAbout";
 
 export default function About() {
@@ -8,11 +8,9 @@ export default function About() {
       <HomeAbout />
       <div className="border-2"></div>
       <AboutCard title="Profile">
-        名前: 丸谷 慶貴（まるや よしき）
+        普段は外資系のITコンサル会社で働いているまるやきです。
         <br />
-        在住: 東京都
-        <br />
-        仕事: ITコンサルタント
+        社会人2年目、プログラミングと投資が好きです。
       </AboutCard>
       <AboutCard title="Hobby">
         ・プログラミング（最近はNext.jsとBaaSに関心があります）
@@ -24,9 +22,9 @@ export default function About() {
       <AboutCard title="Investment">
         個別株（国内株、米国株）、投信がメイン
         <br />
-        VYMをつみニーとは別で積立ている（2年くらい）が、期待していた感じではないなぁというのが最近の悩み。乗り換えるなら別ETFに乗り換えるなら何が良いかね〜
+        VYMをつみニーとは別で積立ている（2年くらい）が、期待していた感じではないなぁというのが最近の悩み。別ETFに乗り換えるなら何が良いんだろうか
         <br />
-        個別株は商社株と銀行株がポートフォリオのメインになっている。2023年は彼らにかなり稼がせてもらったので感謝！
+        個別株は商社株と銀行株がポートフォリオのメインです。2023年はすごい調子良いのでハッピーですね！
       </AboutCard>
     </div>
   );
