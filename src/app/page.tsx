@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   keywords: ["プログラミング", "ブログ", "投資", "個人開発"],
   creator: "Yoshiki Maruya",
   publisher: "Yoshiki Maruya",
+  verification: { google: "vXE6PZ2R5tMVsIBWDWwFGwEs3ae91nT6F0-YIlj42Is" },
   openGraph: {
     type: "website",
     title: "MyCanvas",
