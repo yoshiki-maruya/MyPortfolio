@@ -1,3 +1,3 @@
-const iconList = ["Contact2", "Layers", "Newspaper", "PhoneCall"];
+const iconList = ["Contact2", "Layers", "Newspaper", "PhoneCall"] as const;
 
 export default iconList;
