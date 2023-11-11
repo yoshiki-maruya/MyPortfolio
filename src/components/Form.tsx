@@ -3,6 +3,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import Icon from "./atoms/Icon";
+import useSnackbar from "@/hooks/useSnackbar";
 
 export type ContactForm = {
   name: string;
@@ -19,6 +21,7 @@ const schema = yup.object({
 
 const Form: React.FC = () => {
   const router = useRouter();
+  const addSnackbar = useSnackbar();
   const {
     register,
     handleSubmit,
@@ -37,9 +40,19 @@ const Form: React.FC = () => {
     });
     if (response.status === 200) {
       router.push("/");
-      alert("送信しました");
+      addSnackbar({
+        key: "success",
+        text: "送信成功！",
+        variant: "success",
+        icon: <Icon name="XCircle" />,
+      });
     } else {
-      alert("正常に送信できませんでした");
+      addSnackbar({
+        key: "error",
+        text: "送信失敗。再試行してください。",
+        variant: "error",
+        icon: <Icon name="XCircle" />,
+      });
     }
   };
   return (
@@ -63,7 +76,10 @@ const Form: React.FC = () => {
         />
         {errors.message && <span className="text-xs text-red-500">{errors.message.message}</span>}
       </section>
-      <button type="submit" className="rounded-sm bg-sky-200 px-2 py-1 font-bold">
+      <button
+        type="submit"
+        className="mt-5 rounded-sm bg-sky-200 px-2 py-2 font-bold hover:bg-sky-300"
+      >
         send
       </button>
     </form>
