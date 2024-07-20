@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const posts = allPosts.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
+  const recentPosts = allPosts.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date))).slice(0, 3);
 
   return (
     <>
@@ -32,8 +32,8 @@ export default function Home() {
       <div className="mx-auto max-w-lg px-6 py-8">
         <h1 className="mb-8 text-center text-2xl font-black">Intro</h1>
         <p className="mb-16">MyCanvasは自分の好きなことを好きに表現するサイトです。メインはプログラミング関係のブログ記事や個人開発したサービスの紹介になります。</p>
-        <h1 className="mb-8 text-center text-2xl font-black">Popular Blog</h1>
-        {posts.map((post, idx) => (
+        <h1 className="mb-8 text-center text-2xl font-black">Recent Blog</h1>
+        {recentPosts.map((post, idx) => (
           <PostCard key={idx} {...post} />
         ))}
       </div>
