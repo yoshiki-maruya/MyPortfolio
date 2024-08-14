@@ -78,6 +78,8 @@ const Form: React.FC = () => {
       </section>
       <button
         type="submit"
+        // SendGridアカウント凍結により一時的にdisableに
+        disabled={true}
         className="mt-5 rounded-sm bg-sky-200 px-2 py-2 font-bold hover:bg-sky-300"
       >
         send
