@@ -38,6 +38,115 @@ export default function About() {
         <br />
         ・ラーメン（二郎系が好み、成蹊前ラーメン・桜台二郎・ひばりヶ丘二郎が好き）
       </AboutCard>
+      <AboutCard title="My Tech Stack">
+        <div className="relative overflow-x-auto sm:rounded-lg border">
+          <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+              <tr>
+                <th scope="col" className="px-6 py-3">
+                  Category
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Technology Stack
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="bg-white border-b">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                  Programming Languages<br/>/Library etc.
+                </th>
+                <td className="px-6 py-4">
+                  <p className="font-bold">Frontend</p>
+                  HTML, CSS, Tailwind CSS, JavaScript, TypeScript, React, Next.js, Redux, Cypress, Jest
+                  <p className="font-bold">Backend</p>
+                  C#, Python, TypeScript, C++
+                </td>
+              </tr>
+              <tr className="bg-white border-b">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                  Infrastructure
+                </th>
+                <td className="px-6 py-4">
+                  Azure, Amazon Web Services
+                </td>
+              </tr>
+              <tr className="bg-white border-b">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                  Middleware
+                </th>
+                <td className="px-6 py-4">
+                  Azure App Service, Azure Functions, AWS Lambda
+                </td>
+              </tr>
+              <tr className="bg-white border-b">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                  Messaging
+                </th>
+                <td className="px-6 py-4">
+                  Azure Service Bus
+                </td>
+              </tr>
+              <tr className="bg-white border-b">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                  Database
+                </th>
+                <td className="px-6 py-4">
+                  Azure SQL DB(SQL Server), Azure Cosmos DB, MySQL, Cloud Firestore, Azure Storage(BLOB, Queue, Table), Amazon S3
+                </td>
+              </tr>
+              <tr className="bg-white border-b">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                  monitoring
+                </th>
+                <td className="px-6 py-4">
+                  Azure Monitor, Azure App Insights
+                </td>
+              </tr>
+              <tr className="bg-white border-b">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                  Environment setup
+                </th>
+                <td className="px-6 py-4">
+                  Docker
+                </td>
+              </tr>
+              <tr className="bg-white border-b">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                  AI/Machine Learning<br/>/Search Service
+                </th>
+                <td className="px-6 py-4">
+                  Azure OpenAI Service, Azure AI Search, scikit-learn, PyTorch, OpenCV
+                </td>
+              </tr>
+              <tr className="bg-white border-b">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                  CI/CD
+                </th>
+                <td className="px-6 py-4">
+                  Github Actions, Azure Pipelines
+                </td>
+              </tr>
+              <tr className="bg-white border-b">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                  Code Management
+                </th>
+                <td className="px-6 py-4">
+                  Github
+                </td>
+              </tr>
+              <tr className="bg-white">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                  Other Tools
+                </th>
+                <td className="px-6 py-4">
+                  Azure DevOps, Postman, Storybook
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </AboutCard>
       <AboutCard title="Investment">
         個別株（国内株、米国株）、投信がメイン
         <br />
