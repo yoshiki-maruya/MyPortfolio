@@ -3,9 +3,9 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className="border-t-2 mt-5 mb-2 pt-2 flex justify-between">
-      <small>&copy; 2023 maruyaki</small>
-      <div className="flex justify-end gap-4">
+    <div className="mx-auto max-w-2xl border-t-2 pt-2 my-5 flex justify-between">
+      <small className="ml-2">&copy; 2023 maruyaki</small>
+      <div className="flex justify-end gap-4 mr-2">
         <Link href="https://www.linkedin.com/in/%E6%85%B6%E8%B2%B4-%E4%B8%B8%E8%B0%B7-33b130226/" target="_blank">
           <Image src="/linkedin.svg" alt="" width="25" height="25" />
         </Link>
