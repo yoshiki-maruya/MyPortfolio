@@ -6,7 +6,6 @@ import GoogleAdsense from "@/components/molecules/GoogleAdsense";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const googleAdsensePid = process.env.GOOGLE_ADSENSE_PID ?? "";
-  console.log(googleAdsensePid)
   return (
     <html lang="ja">
       <SnackbarProvider>
