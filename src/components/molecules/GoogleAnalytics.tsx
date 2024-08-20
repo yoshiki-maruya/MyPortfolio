@@ -8,7 +8,7 @@ const GoogleAnalytics: React.FC<IGoogleAnalytics> = ({ gaid }) => {
   return (
     <>
       <Script async src={`https://www.googletagmanager.com/gtag/js?id=${gaid}`} />
-      <Script>
+      <Script id="my-inline-script">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
