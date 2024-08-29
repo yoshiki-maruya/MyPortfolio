@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="flex justify-start">
         <small className="ml-2">&copy; 2023 maruyaki</small>
         <small className="ml-4">
-          <Link href="/privacy-policy">
+          <Link className="hover:border-b border-b-black" href="/privacy-policy">
             プライバシーポリシー
           </Link>
         </small>
