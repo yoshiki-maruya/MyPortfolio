@@ -30,7 +30,11 @@ export default function Works() {
       <WorksCard title="ReportAI" imagePath="/ReportAI.png" alt="ReportAIのロゴ">
         ReportAIは、大学生の課題やレポートの作成を手伝うAIサービスです。
         <br />
-        <Link className="italic" href="https://reportai.jp" target="_blank">
+        <Link 
+          className="italic hover:border-b border-black" 
+          href="https://reportai.jp" 
+          target="_blank"
+        >
           →ReportAIへのリンク
         </Link>
       </WorksCard>
@@ -39,7 +43,7 @@ export default function Works() {
         AI聊天君は、LINE上でAIとチャットができる台湾向けのサービスです。
         <br />
         <Link
-          className="italic"
+          className="italic hover:border-b border-black"
           href="https://liff.line.me/1645278921-kWRPP32q/?accountId=ai_linechat"
           target="_blank"
         >
