@@ -15,13 +15,13 @@ const PostCard = (post: Post) => {
             <p className="relative -z-10">{post.title}</p>
           </h3>
           <p className="relative -z-10 mt-5 line-clamp-3 text-sm leading-4">{post.description}</p>
-          <div className="relative -z-10 mt-2 flex gap-2">
-            {post.tags.map((tag, idx) => (
-              <Tag key={idx} tag={tag} />
-            ))}
-          </div>
         </div>
       </Link>
+      <div className="relative mt-2 flex gap-2">
+        {post.tags.map((tag, idx) => (
+          <Tag key={idx} tag={tag} href={`/categories/${tag}`} />
+        ))}
+      </div>
     </article>
   );
 };
