@@ -3,6 +3,8 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
+import remarkToc from 'remark-toc';
+import rehypeHighlight from 'rehype-highlight';
 
 const Post = defineDocumentType(() => ({
   name: 'Post',
@@ -43,7 +45,7 @@ export default makeSource({
   contentDirPath: 'posts',
   documentTypes: [Post],
   mdx: {
-    remarkPlugins: [remarkGfm],
+    remarkPlugins: [remarkGfm, remarkToc],
     rehypePlugins: [
       rehypeSlug,
       [

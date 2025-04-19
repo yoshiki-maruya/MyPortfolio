@@ -1,0 +1,102 @@
+---
+title: 【覚書】TypeScriptの型記法一覧
+description: ユーティリティ型等の型システムを利用する上で重要な記法を一覧化しました。
+date: 2024-12-10
+tags:
+    - Web開発
+    - 品質
+---
+
+
+## はじめに
+こんにちは、ITコンサルをやっているまるやきです。<br />
+今回はTypeScriptの便利な型記法を備忘的に一覧にまとめました。<br />
+これらを活用することで、型の安全性を保ちつつ柔軟なコードを書くことができます。<br />
+めざせ！型定義マスター！！
+
+
+---
+
+## **基本の型記法**
+| 記法 | 説明 | 例 |
+|------|------|----|
+| `type` | 型エイリアスを作成 | `type Point = { x: number; y: number };` |
+| `interface` | インターフェースを定義 | `interface User { id: number; name: string; }` |
+| `readonly` | 読み取り専用プロパティ | `type Point = { readonly x: number; readonly y: number };` |
+| `?` | オプショナルプロパティ | `type User = { id: number; name?: string };` |
+| `enum` | 列挙型（値を持つ定数セット） | `enum Direction { Up, Down, Left, Right }` |
+
+---
+
+## **ユーティリティ型**
+| 記法 | 説明 | 例 |
+|------|------|----|
+| `Partial<T>` | すべてのプロパティをオプショナルにする | `type PartialUser = Partial<User>;` |
+| `Required<T>` | すべてのプロパティを必須にする | `type RequiredUser = Required<User>;` |
+| `Readonly<T>` | すべてのプロパティを読み取り専用にする | `type ReadonlyUser = Readonly<User>;` |
+| `Pick<T, K>` | 指定したプロパティのみを持つ型を作成 | `type PickedUser = Pick<User, "id">;` |
+| `Omit<T, K>` | 指定したプロパティを除外した型を作成 | `type OmittedUser = Omit<User, "id">;` |
+| `Record<K, T>` | 指定したキーと値の型を持つオブジェクト型を作成 | `type UserRoles = Record<string, "admin" \| "user">;` |
+| `Extract<T, U>` | 共通する型のみを抽出 | `type Common = Extract<"a" \| "b" \| "c", "a" \| "c" \| "d">`; // "a" \| "c" |
+| `Exclude<T, U>` | 指定した型を除外 | `type Diff = Exclude<"a" \| "b" \| "c", "a" \| "c">;` // "b" |
+| `NonNullable<T>` | `null` と `undefined` を除外 | `type NonNull = NonNullable<string \| number \| undefined>;` // string \| number |
+| `ReturnType<T>` | 関数の戻り値の型を取得 | `type FuncReturn = ReturnType<() => string>;` // string |
+| `Parameters<T>` | 関数の引数の型を取得 | `type FuncParams = Parameters<(id: number, name: string) => void>;` // [number, string] |
+| `ConstructorParameters<T>` | コンストラクタの引数の型を取得 | `type CtorParams = ConstructorParameters<typeof Date>;` |
+| `InstanceType<T>` | クラスのインスタンスの型を取得 | `type DateInstance = InstanceType<typeof Date>;` |
+
+---
+
+## **条件付き型**
+| 記法 | 説明 | 例 |
+|------|------|----|
+| `T extends U ? X : Y` | `T` が `U` のサブタイプなら `X`、そうでなければ `Y` | `type IsString<T> = T extends string ? true : false;` |
+| `infer` | 型推論に使う | `type Return<T> = T extends (...args: any[]) => infer R ? R : never;` |
+
+---
+
+## **関数関連**
+| 記法 | 説明 | 例 |
+|------|------|----|
+| `(...args: any[]) => T` | 関数の型を定義 | `type Func = (x: number, y: number) => number;` |
+| `overload` | 関数のオーバーロードを定義 | `function add(x: number, y: number): number; function add(x: string, y: string): string;` |
+
+---
+
+## **タプル・配列関連**
+| 記法 | 説明 | 例 |
+|------|------|----|
+| `[T, U]` | 固定長タプル | `type Point = [number, number];` |
+| `readonly [T, U]` | 読み取り専用タプル | `type ReadonlyTuple = readonly [number, number];` |
+| `Array<T>` | 配列型（一般的な記法） | `type NumberArray = Array<number>;` |
+| `T[]` | 配列型（簡略記法） | `type StringArray = string[];` |
+
+---
+
+## **マッピング型**
+| 記法 | 説明 | 例 |
+|------|------|----|
+| ` { [K in Keys]: T } ` | キーを動的に定義 | `type Mapped<T> = { [K in keyof T]: T[K] };` |
+| `Record<K, T>` | キーと値の型を固定 | `type RoleMap = Record<string, "admin" \| "user">;` |
+
+---
+
+## **キー操作**
+| 記法 | 説明 | 例 |
+|------|------|----|
+| `keyof T` | オブジェクトのキーを取得 | `type UserKeys = keyof User;` // "id" \| "name" |
+| `typeof` | 型を取得 | `const user = { id: 1, name: "Alice" }; type UserType = typeof user;` |
+
+---
+
+## **テンプレートリテラル型**
+| 記法 | 説明 | 例 |
+|------|------|----|
+| `${T}` | 文字列リテラル型 | `type ID = user-${number};` // "user-1" など |
+
+---
+
+### **まとめ**
+今回は備忘的にTypeScriptの型システムについてまとめてみました。<br />
+上記の型記法を活用することで、TypeScriptの型システムをより柔軟に利用できます。<br />
+特に、ユーティリティ型や条件付き型を組み合わせると、型定義の負担を減らし、型安全なコードを効率的に記述できるので、積極的に使用しましょう！

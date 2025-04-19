@@ -148,7 +148,13 @@
 }
 
 .prose code {
-  @apply text-neutral-800 dark:text-neutral-200 px-1 py-0.5 border border-neutral-100 dark:border-neutral-800 rounded-lg;
+  @apply  px-1 py-0.5 bg-gray-200 rounded-md;
+}
+
+/* MDXのコードスパン表示調整 */
+.prose code::before,
+.prose code::after {
+  content: none;
 }
 
 .prose pre code {
