@@ -85,6 +85,9 @@ devDependencies:
   '@testing-library/react':
     specifier: ^14.0.0
     version: 14.3.1(react-dom@18.2.0)(react@18.2.0)
+  '@types/mdx':
+    specifier: ^2.0.13
+    version: 2.0.13
   '@types/testing-library__jest-dom':
     specifier: ^6.0.0
     version: 6.0.0
@@ -1867,7 +1870,6 @@ packages:
 
   /@types/mdx@2.0.13:
     resolution: {integrity: sha512-+OWZQfAYyio6YkJb3HLxDrvnx6SWWDbC0zVPfBRzUk0/nqoDyf6dNxQi3eArPe8rJ473nobTMQ/8Zk+LxJ+Yuw==}
-    dev: false
 
   /@types/ms@0.7.34:
     resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
