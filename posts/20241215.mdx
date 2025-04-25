@@ -1,0 +1,50 @@
+---
+title: 【Web道】ETagってなーに？？
+description: HTTPレスポンスヘッダーの「ETag」について知見を深めます。
+date: 2024-12-15
+tags:
+    - Web開発
+    - キャッシュ
+---
+
+## はじめに
+こんにちは。ITコンサルをやっているまるやきです。<br/>
+今回はHTTPレスポンスヘッダーの一つである「ETag」について知見を深めていきたいと思います。
+
+
+## ETag概要
+ETag(Entity Tag)は、HTTPレスポンスヘッダーの一つで、リソース（ファイルやデータ）のバージョンを識別するために使用されます。
+キャッシュ制御などに活用されます。
+
+## ETagの基本的な仕組み
+サーバーはクライアント（ブラウザなど）にリソースを送る際、レスポンスヘッダーにETagを付与します。
+ETagの値は、リソースの内容を元にハッシュ値のような形で生成される一意の識別子です。
+
+**サーバーからのレスポンス**
+```
+HTTP/1.1 200 OK
+ETag: "abcdef"
+Content-Type: text/html; charset=utf-8
+```
+
+ブラウザはこの`ETag: "abcdef"`を保存し、次回のリクエスト時に`If-None-Match`ヘッダーとして送信します。
+
+## 実際の挙動を確認
+**初回リクエスト時**<br/>
+初回リクエストは、画像のようにステータスコード200で返却され、Etagヘッダーは`W/"c-QwzjTQIHJO11oZbfwq1nx3dy0Wk"`という値で付与されていることがわかります。
+
+![image](https://lv20nem3ar4uhr5a.public.blob.vercel-storage.com/blog-images/20241215/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202025-04-06%2016.43.25-jvbToJYJ1sDdlwaXRYKAdF0FSZebD3.png)
+
+**2回目リクエスト時**<br/>
+2回目のリクエストは、画像のようにステータスコード304で返却され、Etagヘッダー（`W/"c-QwzjTQIHJO11oZbfwq1nx3dy0Wk"`）が初回リクエストのものと同様であることがわかります。
+
+![image](https://lv20nem3ar4uhr5a.public.blob.vercel-storage.com/blog-images/20241215/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202025-04-06%2017.04.11-SXRM4j4CBp073wgfGMjDALhmpXqNhR.png)
+
+またヘッダーをよく見ると`If-None-Match`ヘッダーが付与されており、この値がEtagヘッダーの`W/"c-QwzjTQIHJO11oZbfwq1nx3dy0Wk"`と同様であることが確認できます。
+この`If-None-Match`の値が、Etagヘッダーの値と異なっていた場合、キャッシュではなく、ステータスコード200として取得したデータを更新して返却します。
+
+![image](https://lv20nem3ar4uhr5a.public.blob.vercel-storage.com/blog-images/20241215/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202025-04-06%2017.04.38-TOP9TIHOMv7O4fCGSuCDKUkMSkQ01X.png)
+
+## さいごに
+今回は【Web道】というタイトルで、Etagについて勉強しました。
+【Web道】はシリーズ化してWeb開発の知見を深める記事を執筆していければ良いなと思っているので、私自身のスキルアップもそうですが、みなさまにとっても何かプラスになるような記事を執筆していければと考えております！
