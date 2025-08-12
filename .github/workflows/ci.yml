@@ -10,14 +10,18 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
+      # pnpm をインストール（推奨:公式アクション）
+      - name: install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.14.0
+
+      # Node をセットアップ（pnpm キャッシュ有効化）
       - name: setup-node
         uses: actions/setup-node@v3
         with:
           node-version: 24.5.0
           cache: pnpm
-
-      - name: install pnpm
-        run: npm install -g pnpm
 
       - name: pnpm install
         run: pnpm install --frozen-lockfile
