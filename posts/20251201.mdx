@@ -1,0 +1,315 @@
+---
+title: commit-helperでコミットを綺麗化しよう
+description: Conventional Commitsを簡単に実現するCLIツールを作成しました。
+date: 2025-12-01
+tags:
+    - Git
+    - GitHub
+    - チーム開発
+---
+
+## はじめに
+こんにちは。ITコンサルをやっているまるやきです。<br/>
+チーム開発において、コミットメッセージの品質と一貫性は、プロジェクトの保守性を大きく左右する重要な要素です。しかし、毎回「これはfeatなのか、fixなのか」「scopeはどう書くべきか」と悩んでいる開発者も多いのではないでしょうか。
+
+そこで今回、Gitのコミットを補助するCLIツール「**commit-helper**」を開発しました。このツールは、Conventional Commitsに準拠した高品質なコミットメッセージを、対話形式で簡単に作成できる開発者支援ツールです。
+
+本記事では、commit-helperの特徴、使い方、そして開発の背景について詳しくご紹介します。
+
+## commit-helperとは
+
+commit-helperは、Gitのステージされたファイルから、Conventional Commitsに準拠したコミットメッセージを自動生成するNode.js製のCLIツールです。対話型のインターフェースを通じて、コミットタイプやスコープ、説明文を選択・入力できるため、コミット規則を意識せずとも、自然と統一されたコミットメッセージを作成できます。
+
+### Conventional Commitsとは
+
+Conventional Commitsは、コミットメッセージに構造と意味を持たせるための仕様です。基本的なフォーマットは以下の通りです。
+
+```
+<type>(<scope>): <description>
+```
+
+例えば、APIに新しいエンドポイントを追加した場合は以下のようになります。
+
+```
+feat(api): add user profile endpoint
+```
+
+この規約に従うことで、以下のメリットが得られます。
+
+- **変更履歴の可読性向上**: コミットログを見るだけで、何が変更されたのか一目瞭然
+- **自動化の促進**: CHANGELOGの自動生成やセマンティックバージョニングが可能に
+- **チーム内の統一**: 誰が書いても同じフォーマットのコミットメッセージになる
+
+## commit-helperの主な機能
+
+### 1. ステージファイルの自動検出
+
+commit-helperを実行すると、現在ステージされている（`git add`された）ファイルを自動的に検出し、一覧表示します。
+
+```
+📁Staged files:
+- src/index.ts
+- package.json
+```
+
+これにより、「何をコミットしようとしているのか」を視覚的に確認できます。
+
+### 2. 対話型のコミットタイプ選択
+
+Conventional Commitsで定義されている主要なコミットタイプから選択できます。
+
+| Type | 説明 |
+|------|------|
+| `feat` | 新機能の追加 |
+| `fix` | バグ修正 |
+| `docs` | ドキュメントのみの変更 |
+| `style` | コードの意味に影響しない変更（スペース、フォーマットなど） |
+| `refactor` | バグ修正や機能追加を伴わないコードの改善 |
+| `test` | テストの追加や既存テストの修正 |
+| `chore` | ビルドプロセスやツールの変更など |
+
+対話形式で選択できるため、タイプを暗記する必要がありません。
+
+### 3. スコープと説明文の入力
+
+スコープ（変更の影響範囲）は任意で入力でき、説明文は必須項目として入力します。これにより、以下のような構造化されたコミットメッセージが生成されます。
+
+```
+feat(cli): add interactive commit helper
+```
+
+### 4. 確認プロンプト
+
+コミット前には必ず確認プロンプトが表示されるため、誤ったコミットを防ぐことができます。
+
+```
+? Do you want to commit these files? (Yes/No)
+```
+
+### 5. 自動コミット実行
+
+すべての入力が完了すると、SimpleGitライブラリを使用して実際にGitコミットを実行します。
+
+```
+✅ Commit created: "feat(cli): add interactive commit helper"
+```
+
+## インストール方法
+
+commit-helperは、グローバルインストールとローカルインストールの両方に対応しています。
+
+### グローバルインストール
+
+システム全体で使用したい場合は、グローバルインストールがおすすめです。
+
+```bash
+npm install -g @yoshiki-maruya/commit-helper
+```
+
+インストール後は、どのディレクトリからでも以下のコマンドで実行できます。
+
+```bash
+npx commit-helper
+```
+
+### プロジェクト単位でのインストール
+
+特定のプロジェクトでのみ使用したい場合は、devDependenciesとしてインストールします。
+
+```bash
+npm install @yoshiki-maruya/commit-helper --save-dev
+```
+
+そして、`package.json`のscriptsに登録します。
+
+```json
+{
+  "scripts": {
+    "commit": "npx commit-helper"
+  }
+}
+```
+
+実行は以下のコマンドで行います。
+
+```bash
+npm run commit
+```
+
+## 使い方
+
+commit-helperの使い方は非常にシンプルです。基本的なワークフローを見ていきましょう。
+
+### ステップ1: ファイルをステージング
+
+まず、通常通り変更をステージングします。
+
+```bash
+git add src/index.ts
+git add package.json
+```
+
+### ステップ2: commit-helperを実行
+
+```bash
+npx commit-helper
+```
+
+または、npm scriptsに登録している場合は：
+
+```bash
+npm run commit
+```
+
+### ステップ3: 対話形式で入力
+
+以下のような対話が始まります。
+
+```
+📁 Staged files:
+- src/index.ts
+- package.json
+
+? Do you want to commit these files? › Yes
+? Select commit type › feat
+? Enter scope (optional): cli
+? Enter commit description: add interactive commit helper
+```
+
+### ステップ4: コミット完了
+
+入力が完了すると、自動的にコミットが実行されます。
+
+```
+✅ Commit created: "feat(cli): add interactive commit helper"
+```
+
+このように、わずか数ステップで、Conventional Commitsに準拠した高品質なコミットメッセージを作成できます。
+
+## 実践的な使用例
+
+### 例1: 新機能の追加
+
+新しいユーザー認証機能を追加した場合：
+
+```
+? Select commit type › feat
+? Enter scope (optional): auth
+? Enter commit description: implement JWT-based authentication
+
+✅ Commit created: "feat(auth): implement JWT-based authentication"
+```
+
+### 例2: バグ修正
+
+UIのレイアウトバグを修正した場合：
+
+```
+? Select commit type › fix
+? Enter scope (optional): ui
+? Enter commit description: correct header alignment on mobile devices
+
+✅ Commit created: "fix(ui): correct header alignment on mobile devices"
+```
+
+### 例3: ドキュメントの更新
+
+READMEを更新した場合（スコープなし）：
+
+```
+? Select commit type › docs
+? Enter scope (optional): 
+? Enter commit description: update installation instructions
+
+✅ Commit created: "docs: update installation instructions"
+```
+
+### 例4: リファクタリング
+
+データベースクエリを最適化した場合：
+
+```
+? Select commit type › refactor
+? Enter scope (optional): database
+? Enter commit description: optimize user query performance
+
+✅ Commit created: "refactor(database): optimize user query performance"
+```
+
+## 技術的な特徴
+
+commit-helperは、以下の技術スタックで構築されています。
+
+### 使用技術
+
+- **Node.js**: 実行環境
+- **TypeScript**: 型安全な開発
+- **SimpleGit**: Git操作の抽象化
+- **commander**: 自作node実行コマンド実装
+- **Inquirer**: 対話型CLIの実装
+- **inquirer/prompts**: 対話型CLIの実装
+
+### 動作要件
+
+- Node.js 16以上
+- Gitがインストールされていること
+- ステージされたファイルが存在すること
+
+## このツールを開発した理由
+
+私自身、日々の開発でコミットメッセージの一貫性に課題を感じていました。
+
+- 「これはfeatか、choreか？」と迷う時間
+- チームメンバー間でのコミットメッセージのバラつき
+- 後から見返した時に変更内容が分かりにくい
+
+これらの問題を解決するため、「考えるよりも、選ぶ」という発想で、対話形式のツールを開発しました。Conventional Commitsという優れた規約を、より手軽に実践できるようにすることが目標です。
+
+## チーム開発での活用
+
+commit-helperは、特にチーム開発において威力を発揮します。
+
+### 新メンバーのオンボーディング
+
+新しくジョインしたメンバーが、Conventional Commitsのルールを覚える必要がありません。ツールが対話形式でガイドしてくれるため、初日から統一されたコミットメッセージを書けます。
+
+### コードレビューの効率化
+
+コミットメッセージが統一されることで、Pull Requestのレビューが格段に効率的になります。変更の意図が明確になり、レビュアーはコードの変更内容に集中できます。
+
+### 自動化への足がかり
+
+Conventional Commitsに準拠したコミットログがあれば、以下のような自動化が可能になります。
+
+- **CHANGELOG自動生成**: リリースノートを自動作成
+- **セマンティックバージョニング**: バージョン番号を自動的に決定
+- **CI/CDの最適化**: コミットタイプに応じた異なるワークフローの実行
+
+## 今後の展望
+
+commit-helperは、まだ初期バージョンです。今後、以下のような機能追加を検討しています。
+
+- **Breaking Changes対応**: `!`を使った破壊的変更の表記
+- **カスタムタイプ**: プロジェクト固有のコミットタイプの追加
+- **多言語対応**: 英語以外の言語でのインターフェース提供
+- **コミットテンプレート**: より詳細なコミットメッセージのテンプレート機能
+- **Git Hooks統合**: `prepare-commit-msg`フックとの連携
+
+コミュニティからのフィードバックを基に、継続的な改善を行っていく予定です。
+
+## まとめ
+
+commit-helperは、Conventional Commitsを誰でも簡単に実践できるようにするCLIツールです。対話形式のシンプルなインターフェースにより、コミットメッセージの品質と一貫性を保ちながら、開発者の負担を減らすことができます。
+
+個人開発からチーム開発まで、あらゆる規模のプロジェクトで活用できるツールですので、ぜひ一度お試しください。
+
+## リンク
+
+- **GitHubリポジトリ**: [https://github.com/yoshiki-maruya/commit-helper](https://github.com/yoshiki-maruya/commit-helper)
+- **npm パッケージ**: `@yoshiki-maruya/commit-helper`
+
+---
+
+皆様のフィードバックやコントリビューションをお待ちしています。GitHubでのStarやIssue、Pull Requestも大歓迎です！
+
+良いコミットメッセージで、より良い開発体験を。

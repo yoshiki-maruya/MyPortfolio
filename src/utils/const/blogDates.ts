@@ -8,7 +8,8 @@ const blogDates = [
   "20240731", 
   "20240801",
   "20241210",
-  "20241215"
+  "20241215",
+  "20251201"
 ] as const;
 
 export default blogDates;
