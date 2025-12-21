@@ -12,10 +12,12 @@ export type ContactForm = {
   message: string;
 };
 
-// バリーデーションルール
 const schema = yup.object({
   name: yup.string().required("必須項目です"),
-  email: yup.string().required("必須項目です").email("正しいメールアドレス入力してください"),
+  email: yup
+    .string()
+    .required("必須項目です")
+    .email("正しいメールアドレス入力してください"),
   message: yup.string().required("必須項目です"),
 });
 
@@ -33,9 +35,7 @@ const Form: React.FC = () => {
   const onSubmit: SubmitHandler<ContactForm> = async (data) => {
     const response = await fetch("api/sendMail", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
     if (response.status === 200) {
@@ -55,32 +55,67 @@ const Form: React.FC = () => {
       });
     }
   };
+
   return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="flex flex-col mx-auto gap-7 bg-white p-10 rounded-2xl shadow-lg max-w-2xl w-full border border-gray-100"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <section className="flex flex-col">
-        <label className="">name</label>
-        <input className="rounded-md border border-gray-500 px-2 py-1" {...register("name")} />
-        {errors.name && <span className="text-xs text-red-500">{errors.name.message}</span>}
+        <label className="text-base font-semibold text-gray-800 mb-2 tracking-wide">
+          Name
+        </label>
+        <input
+          className="rounded-xl border-2 border-gray-200 px-5 py-3.5 text-gray-800 bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400"
+          placeholder="山田 太郎"
+          {...register("name")}
+        />
+        {errors.name && (
+          <span className="text-sm text-red-500 mt-2 font-medium">
+            {errors.name.message}
+          </span>
+        )}
       </section>
+
       <section className="flex flex-col">
-        <label className="">email</label>
-        <input className="rounded-md border border-gray-500 px-2 py-1" {...register("email")} />
-        {errors.email && <span className="text-xs text-red-500">{errors.email.message}</span>}
+        <label className="text-base font-semibold text-gray-800 mb-2 tracking-wide">
+          Email
+        </label>
+        <input
+          type="email"
+          className="rounded-xl border-2 border-gray-200 px-5 py-3.5 text-gray-800 bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400"
+          placeholder="example@email.com"
+          {...register("email")}
+        />
+        {errors.email && (
+          <span className="text-sm text-red-500 mt-2 font-medium">
+            {errors.email.message}
+          </span>
+        )}
       </section>
+
       <section className="flex flex-col">
-        <label className="">message</label>
+        <label className="text-base font-semibold text-gray-800 mb-2 tracking-wide">
+          Message
+        </label>
         <textarea
-          className="resize-none rounded-md border border-gray-500 px-2 py-1"
-          rows={4}
+          className="resize-none rounded-xl border-2 border-gray-200 px-5 py-3.5 text-gray-800 bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400 leading-relaxed"
+          rows={6}
+          placeholder="お問い合わせ内容をご記入ください"
           {...register("message")}
         />
-        {errors.message && <span className="text-xs text-red-500">{errors.message.message}</span>}
+        {errors.message && (
+          <span className="text-sm text-red-500 mt-2 font-medium">
+            {errors.message.message}
+          </span>
+        )}
       </section>
+
       <button
         type="submit"
-        className="mt-5 rounded-sm bg-sky-200 px-2 py-2 font-bold hover:bg-sky-300"
+        className="mt-4 rounded-xl bg-gradient-to-r from-sky-400 to-blue-600 text-white font-semibold text-lg px-8 py-4 shadow-md hover:shadow-xl hover:from-sky-600 hover:to-blue-700 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0"
       >
-        send
+        Send Message
       </button>
     </form>
   );
