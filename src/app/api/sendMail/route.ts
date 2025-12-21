@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     const { name, email, message } = await req.json();
 
     try {
-      // 管理者宛メール
+      // 管理者宛メールを送信
       await resend.emails.send({
         from: "admin@yoshiki-maruya.com",
         to: "yoshiki.maruya@gmail.com",
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
         `,
       });
 
-      // ユーザー宛メール
+      // ユーザー宛メールを送信
       await resend.emails.send({
         from: "noreply@yoshiki-maruya.com",
         to: email,
