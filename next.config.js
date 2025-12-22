@@ -4,7 +4,8 @@ const { withContentlayer } = require('next-contentlayer');
 const nextConfig = {
   env: {
     WEBSITE_HOST_URL: process.env.WEBSITE_HOST_URL,
-    SENDGRID_API_KEY: process.env.SENDGRID_API_KEY
+    SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
+    RESEND_API_KEY: process.env.RESEND_API_KEY
   }
 }
 
