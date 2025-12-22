@@ -1,0 +1,189 @@
+---
+title: Next.js環境変数管理ガイド
+description: Next.jsで環境変数を扱う方法について知見を深めます。
+date: 2025-1-4
+tags:
+    - Next.js
+    - Web開発
+    - セキュリティ
+---
+
+## はじめに
+こんにちは。ITコンサルをやっているまるやきです。<br/>
+皆様あけましておめでとうございます。今年もどうぞよろしくお願いいたします。<br/>
+今回はNext.jsにおける環境変数の管理方法と、セキュリティを考慮した適切な使い方について解説します。
+
+## 環境変数の基本
+
+Next.jsでは、環境変数を扱う主に3つの方法があります。
+
+### 1. サーバーサイドのみで使用（デフォルト）
+
+`.env.local`ファイルに定義した環境変数は、デフォルトでサーバーサイドのみで利用可能です。
+
+```bash
+# .env.local
+DATABASE_URL=postgresql://localhost:5432/mydb
+API_SECRET_KEY=your-secret-key
+```
+
+これらはAPI RoutesやServer Componentsでのみアクセス可能で、クライアントサイドには公開されません。
+
+### 2. next.config.jsのenvオプション
+
+`next.config.js`の`env`プロパティに登録することで、クライアントサイドでも利用可能になります。
+
+```javascript
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  env: {
+    WEBSITE_HOST_URL: process.env.WEBSITE_HOST_URL,
+    APP_VERSION: process.env.APP_VERSION
+  }
+}
+
+module.exports = nextConfig
+```
+
+**メリット：**
+- クライアントサイド（ブラウザ）のJavaScriptコードでも`process.env.WEBSITE_HOST_URL`としてアクセス可能
+- ビルド時にコードに直接埋め込まれるため、ランタイムでの参照が不要
+- パフォーマンスの向上
+
+**デメリット：**
+- ビルド時に埋め込まれるため、環境変数を変更する場合は再ビルドが必要
+- 誤ってシークレット情報を公開してしまうリスク
+
+### 3. NEXT_PUBLIC_プレフィックス（推奨）
+
+Next.js 9.4以降では、`NEXT_PUBLIC_`プレフィックスを使用する方法が推奨されています。
+
+```bash
+# .env.local
+NEXT_PUBLIC_API_URL=https://api.example.com
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+
+# サーバーサイドのみ
+DATABASE_URL=postgresql://localhost:5432/mydb
+```
+
+このプレフィックスを付けた環境変数は、`next.config.js`での設定なしに自動的にクライアントサイドで利用可能になります。
+
+## セキュリティ上の重要な注意点
+
+### ❌ 絶対にやってはいけないこと
+
+以下のような機密情報をクライアントサイドに公開してはいけません：
+
+```javascript
+// 危険な例
+const nextConfig = {
+  env: {
+    SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,  // ❌
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY,      // ❌
+    DATABASE_URL: process.env.DATABASE_URL,           // ❌
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY  // ❌
+  }
+}
+```
+
+**理由：**
+- ブラウザの開発者ツールで誰でも閲覧可能
+- ビルドされたJavaScriptファイルに平文で埋め込まれる
+- APIキーが盗まれて悪用される可能性
+
+### ✅ 正しい使い方
+
+```javascript
+// 安全な例
+const nextConfig = {
+  env: {
+    // 公開しても安全な情報のみ
+    WEBSITE_HOST_URL: process.env.WEBSITE_HOST_URL,  // ✅
+    APP_VERSION: process.env.APP_VERSION              // ✅
+  }
+}
+```
+
+または、`NEXT_PUBLIC_`プレフィックスを使用：
+
+```bash
+# .env.local
+# クライアントサイドで使用
+NEXT_PUBLIC_API_URL=https://api.example.com
+
+# サーバーサイドのみで使用
+SENDGRID_API_KEY=SG.xxxxxxxxxxxxx
+OPENAI_API_KEY=sk-xxxxxxxxxxxxx
+```
+
+## 使用例
+
+### サーバーサイドでの使用（API Routes）
+
+```typescript
+// pages/api/send-email.ts
+export async function POST(req: NextRequest, res: NextResponse) {
+  // サーバーサイドのみでアクセス可能
+  const apiKey = process.env.SENDGRID_API_KEY;
+  
+  // メール送信処理
+  // ...
+  
+  res.status(200).json({ success: true });
+}
+```
+
+### クライアントサイドでの使用
+
+```typescript
+// components/Header.tsx
+export default function Header() {
+  // NEXT_PUBLIC_プレフィックス付きの環境変数
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  
+  return (
+    <header>
+      <p>API URL: {apiUrl}</p>
+    </header>
+  );
+}
+```
+
+## 環境変数の優先順位
+
+Next.jsは以下の優先順位で環境変数を読み込みます：
+
+1. `process.env`（システム環境変数）
+2. `.env.$(NODE_ENV).local`（例：`.env.production.local`）
+3. `.env.local`（テスト環境では読み込まれない）
+4. `.env.$(NODE_ENV)`（例：`.env.production`）
+5. `.env`
+
+## ベストプラクティス
+
+1. **機密情報は絶対にクライアントサイドに公開しない**
+   - APIキー、データベース接続情報、シークレットキーなど
+
+2. **NEXT_PUBLIC_プレフィックスを活用する**
+   - `next.config.js`での明示的な設定よりも、意図が明確になる
+
+3. **.envファイルをGit管理に含めない**
+   - `.gitignore`に`.env*.local`を追加
+
+4. **環境ごとに適切なファイルを使用**
+   - 開発環境：`.env.local`
+   - 本番環境：`.env.production.local`
+
+5. **環境変数の命名規則を統一**
+   - 公開用：`NEXT_PUBLIC_`プレフィックス
+   - サーバー用：機密度に応じた命名（例：`SECRET_`, `PRIVATE_`）
+
+## まとめ
+
+- `next.config.js`の`env`オプションは、クライアントサイドで環境変数を使用できるようにする便利な機能
+- しかし、セキュリティリスクがあるため、公開しても安全な情報のみに使用する
+- Next.js 9.4以降は`NEXT_PUBLIC_`プレフィックスの使用が推奨
+- APIキーやシークレットは必ずサーバーサイドのみで使用する
+
+適切な環境変数管理により、セキュアで保守性の高いNext.jsアプリケーションを構築できます。
