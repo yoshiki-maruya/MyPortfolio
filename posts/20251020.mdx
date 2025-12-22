@@ -1,0 +1,432 @@
+---
+title: Next.js Middleware/Proxyを使いこなす
+description: Next.js Middleware/Proxyについてのナレッジをシェアします。
+date: 2025-10-20
+tags:
+    - Next.js
+---
+
+
+## はじめに
+こんにちは。ITコンサルをやっているまるやきです。<br/>
+最近Next.js 16でMiddlewareが「Proxy」に名称変更されました。<br/>
+この記事では、Middleware（現Proxy）の機能、使用場面、ユースケース、そして名称変更の背景について詳しく解説します。
+
+## Middleware/Proxyとは
+
+Proxyは、リクエストが完了する前にコードを実行できる機能です。受信リクエストに基づいて、レスポンスを変更したり、リダイレクトしたり、ヘッダーを修正したりできます。
+
+### 主な特徴
+
+- **実行タイミング**: ルートがレンダリングされる前に実行
+- **実行環境**: デフォルトでEdge Runtimeで動作（クライアントに近い場所で高速処理）
+- **ファイル配置**: プロジェクトルート（`pages`や`app`と同じ階層）に`proxy.ts`または`middleware.ts`を配置
+
+## なぜ「Middleware」から「Proxy」に名称変更されたのか
+
+### 名称変更の理由
+
+「middleware」という用語はExpress.jsのミドルウェアと混同されやすく、誤用を招いていました。Next.jsチームは以下の理由から名称変更を決定しました：
+
+1. **目的の明確化**: 「proxy」という用語は、アプリの前に配置されたネットワーク境界があることを意味し、Middlewareの動作と一致します
+
+2. **使用の抑制**: Middlewareは非常に強力な機能ですが、Next.jsチームは最後の手段としての使用を推奨しています
+
+3. **セキュリティの観点**: 2025年3月にMiddlewareの重大な脆弱性が発見され、認証チェックを完全にバイパスできる問題が明らかになりました
+
+### 移行方法
+
+Next.js 16では、codemodを使って自動的に移行できます：
+
+```bash
+npx @next/codemod@canary middleware-to-proxy
+```
+
+このコマンドは、ファイル名と関数名を自動的に変更してくれます。
+
+## 基本的な使い方
+
+### ファイルの作成
+
+プロジェクトルートに`proxy.ts`（または`middleware.ts`）を作成します：
+
+```typescript
+// proxy.ts
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+// デフォルトエクスポート
+export default function proxy(request: NextRequest) {
+  // リクエスト処理
+  return NextResponse.next();
+}
+
+// または名前付きエクスポート
+export function proxy(request: NextRequest) {
+  return NextResponse.next();
+}
+```
+
+### Matcherの設定
+
+特定のパスにのみProxyを適用する場合は、`matcher`を使用します：
+
+```typescript
+export const config = {
+  matcher: [
+    '/dashboard/:path*',
+    '/admin/:path*',
+    '/((?!api|_next/static|_next/image|favicon.ico).*)'
+  ]
+};
+```
+
+**Matcherのパターン：**
+- `/about/:path*` - `/about/a/b/c`にマッチ（0個以上）
+- `/about/:path?` - `/about`または`/about/a`にマッチ（0個または1個）
+- `/about/:path+` - `/about/a`以降にマッチ（1個以上）
+
+## 主な機能
+
+### 1. リダイレクト
+
+```typescript
+export function proxy(request: NextRequest) {
+  const token = request.cookies.get('token');
+  
+  if (!token && request.nextUrl.pathname.startsWith('/dashboard')) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+  
+  return NextResponse.next();
+}
+```
+
+### 2. URL書き換え（Rewrite）
+
+```typescript
+export function proxy(request: NextRequest) {
+  // /old-blog/xxx を /blog/xxx に書き換え
+  if (request.nextUrl.pathname.startsWith('/old-blog')) {
+    return NextResponse.rewrite(
+      new URL(request.nextUrl.pathname.replace('/old-blog', '/blog'), request.url)
+    );
+  }
+  
+  return NextResponse.next();
+}
+```
+
+### 3. ヘッダーの追加・変更
+
+```typescript
+export function proxy(request: NextRequest) {
+  const response = NextResponse.next();
+  
+  // カスタムヘッダーを追加
+  response.headers.set('x-custom-header', 'my-value');
+  response.headers.set('x-request-id', crypto.randomUUID());
+  
+  return response;
+}
+```
+
+### 4. Cookie操作
+
+```typescript
+export function proxy(request: NextRequest) {
+  const response = NextResponse.next();
+  
+  // Cookieを設定
+  response.cookies.set('viewed', 'true', {
+    maxAge: 60 * 60 * 24 * 7, // 7日間
+    httpOnly: true
+  });
+  
+  return response;
+}
+```
+
+### 5. 直接レスポンスを返す
+
+```typescript
+export function proxy(request: NextRequest) {
+  // メンテナンスモード
+  const isMaintenanceMode = process.env.MAINTENANCE_MODE === 'true';
+  
+  if (isMaintenanceMode) {
+    return new NextResponse(
+      JSON.stringify({ message: 'メンテナンス中です' }),
+      {
+        status: 503,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+  }
+  
+  return NextResponse.next();
+}
+```
+
+## 利用場面とユースケース
+
+### 1. 認証とアクセス制御
+
+**⚠️ 重要な注意点**: Proxyはセッション管理や認証の完全なソリューションとして使用すべきではありません。軽量な楽観的チェックにのみ使用し、実際の認証はページやAPI Routeで行うべきです。
+
+```typescript
+export function proxy(request: NextRequest) {
+  const sessionCookie = request.cookies.get('session');
+  
+  // 楽観的なリダイレクトのみ
+  if (!sessionCookie && request.nextUrl.pathname.startsWith('/dashboard')) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+  
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ['/dashboard/:path*', '/admin/:path*']
+};
+```
+
+### 2. A/Bテスト
+
+```typescript
+export function proxy(request: NextRequest) {
+  const bucket = request.cookies.get('bucket');
+  
+  if (!bucket) {
+    // ランダムにバケットを割り当て
+    const newBucket = Math.random() < 0.5 ? 'a' : 'b';
+    const response = NextResponse.next();
+    response.cookies.set('bucket', newBucket);
+    return response;
+  }
+  
+  if (bucket.value === 'b' && request.nextUrl.pathname === '/') {
+    return NextResponse.rewrite(new URL('/home-variant-b', request.url));
+  }
+  
+  return NextResponse.next();
+}
+```
+
+### 3. 地域別リダイレクト
+
+```typescript
+export function proxy(request: NextRequest) {
+  const country = request.geo?.country || 'US';
+  const pathname = request.nextUrl.pathname;
+  
+  // 日本からのアクセスで日本語ページが無い場合
+  if (country === 'JP' && !pathname.startsWith('/ja')) {
+    return NextResponse.redirect(new URL(`/ja${pathname}`, request.url));
+  }
+  
+  return NextResponse.next();
+}
+```
+
+### 4. レート制限とボット対策
+
+```typescript
+const rateLimit = new Map<string, number[]>();
+
+export function proxy(request: NextRequest) {
+  const ip = request.ip || 'unknown';
+  const now = Date.now();
+  const windowMs = 60 * 1000; // 1分
+  const maxRequests = 100;
+  
+  const requests = rateLimit.get(ip) || [];
+  const recentRequests = requests.filter(time => now - time < windowMs);
+  
+  if (recentRequests.length >= maxRequests) {
+    return new NextResponse('Too Many Requests', { status: 429 });
+  }
+  
+  recentRequests.push(now);
+  rateLimit.set(ip, recentRequests);
+  
+  return NextResponse.next();
+}
+```
+
+### 5. 外部APIへのプロキシ
+
+```typescript
+export function proxy(request: NextRequest) {
+  // 分析ツールのトラッキングをプロキシして広告ブロッカーを回避
+  if (request.nextUrl.pathname.startsWith('/analytics')) {
+    const url = new URL(request.url);
+    url.hostname = 'analytics.example.com';
+    url.pathname = url.pathname.replace('/analytics', '');
+    
+    return NextResponse.rewrite(url);
+  }
+  
+  return NextResponse.next();
+}
+```
+
+### 6. カスタムロギング
+
+```typescript
+export function proxy(request: NextRequest) {
+  const start = Date.now();
+  
+  // リクエスト情報をログ
+  console.log({
+    method: request.method,
+    url: request.url,
+    userAgent: request.headers.get('user-agent'),
+    timestamp: new Date().toISOString()
+  });
+  
+  const response = NextResponse.next();
+  
+  // レスポンスヘッダーに処理時間を追加
+  response.headers.set('x-response-time', `${Date.now() - start}ms`);
+  
+  return response;
+}
+```
+
+### 7. 特定機能のフラグ制御
+
+```typescript
+export function proxy(request: NextRequest) {
+  const betaFeature = request.cookies.get('beta_feature');
+  
+  if (request.nextUrl.pathname.startsWith('/new-feature') && !betaFeature) {
+    return NextResponse.redirect(new URL('/coming-soon', request.url));
+  }
+  
+  return NextResponse.next();
+}
+```
+
+## ベストプラクティス
+
+### ✅ やるべきこと
+
+1. **軽量な処理に限定する**
+   - Proxyは高速に実行されることが期待されます
+   - 重い計算やデータベースクエリは避ける
+
+2. **matcherを活用する**
+   - 必要なルートのみにProxyを適用
+   - 不要な実行を避けてパフォーマンスを向上
+
+3. **早期リターンする**
+   - 条件に合わない場合は素早く`NextResponse.next()`を返す
+
+4. **適切なエラーハンドリング**
+   ```typescript
+   export function proxy(request: NextRequest) {
+     try {
+       // 処理
+       return NextResponse.next();
+     } catch (error) {
+       console.error('Proxy error:', error);
+       return NextResponse.next(); // フォールバック
+     }
+   }
+   ```
+
+### ❌ やってはいけないこと
+
+1. **データベースクエリを直接実行しない**
+   ```typescript
+   // ❌ 悪い例
+   export async function proxy(request: NextRequest) {
+     const user = await db.user.findUnique({ ... }); // 遅い！
+     // ...
+   }
+   ```
+
+2. **セキュリティの主要な層として使用しない**
+   - Proxyでの認証チェックは楽観的なものとして扱う
+   - 実際の認証・認可はページやAPI Routeで行う
+
+3. **複雑なビジネスロジックを実装しない**
+   - Proxyはルーティングとリクエスト変換に特化すべき
+
+4. **グローバル変数に依存しない**
+   - Proxyは分離された環境で実行される可能性がある
+   - 状態を共有する場合はヘッダーやCookieを使用
+
+## Node.js 16以降の新機能
+
+Next.js 16以降では、ProxyでNode.js Runtimeを使用できるようになりました：
+
+```typescript
+export const runtime = 'nodejs'; // Node.js Runtimeを指定
+
+import { auth } from '@/lib/auth';
+
+export async function proxy(request: NextRequest) {
+  // データベースへの完全なセッション検証が可能
+  const session = await auth.api.getSession({
+    headers: await headers()
+  });
+  
+  if (!session) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+  
+  return NextResponse.next();
+}
+```
+
+**注意**: Node.js Runtimeは実験的機能なので、本番環境での使用は慎重に検討してください。
+
+## パフォーマンスへの影響
+
+Middlewareは設定されたパスに一致するすべてのリクエストで実行されます。公開ルートや静的アセットでも実行されるため、パフォーマンスへの影響があります。
+
+### 最適化のポイント
+
+1. **matcher**で実行範囲を限定
+2. 処理をできるだけ軽量に保つ
+3. 必要な場合のみProxyを使用し、可能であれば`next.config.js`の`redirects`や`rewrites`を使用
+
+```javascript
+// next.config.js での代替案
+module.exports = {
+  async redirects() {
+    return [
+      {
+        source: '/old-blog/:path*',
+        destination: '/blog/:path*',
+        permanent: true
+      }
+    ];
+  }
+};
+```
+
+## 移行のタイムライン
+
+- **Next.js 15以前**: `middleware.ts`を使用
+- **Next.js 16**: `proxy.ts`が推奨されるが、`middleware.ts`も動作する（非推奨）
+- **将来**: `middleware.ts`のサポートが終了する可能性
+
+## まとめ
+
+Next.jsのMiddleware（現Proxy）は、リクエストレベルでの柔軟な制御を可能にする強力な機能です。しかし、その強力さゆえに適切な使い方が重要です。<br />
+以下のリポジトリでは、Middleware（現Proxy）のユースケースがコードとして豊富に例示されているので、ぜひ気になる方は見てみてください。
+
+[Middlewareサンプルコード](https://github.com/vercel/examples/tree/main/edge-middleware)
+
+**重要なポイント：**
+- 軽量なリダイレクトやリライトに使用
+- 認証は楽観的なチェックのみ、実際の検証はページで行う
+- パフォーマンスへの影響を考慮してmatcherで範囲を限定
+- 複雑なビジネスロジックはAPI RouteやServer Componentsで実装
+
+適切に使用することで、ユーザー体験を向上させ、セキュアで高速なNext.jsアプリケーションを構築できます。
