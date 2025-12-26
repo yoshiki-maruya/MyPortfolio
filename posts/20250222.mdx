@@ -1,0 +1,217 @@
+--- 
+title: 【Web開発の壁】CORSエラーを徹底解説！もう怖くない！
+description: Webセキュリティの基礎、CORS（Cross-Origin Resource Sharing）を理解し、堅牢なWebシステムを開発する力を手に入れよう。
+date: 2025-02-22
+tags:
+    - Web開発
+    - HTTP
+    - セキュリティ
+---
+
+## はじめに
+こんにちは！ITコンサルタントのまるやきです。
+
+Web開発中に、こんなエラーに遭遇したことはありませんか？
+`"Access to fetch at '...' has been blocked by CORS policy"`
+
+これは **CORS (Cross-Origin Resource Sharing)** という仕組みによるものです。「コルス」や「クロス」と読みます。（決して「コロス」ではありません...笑）
+
+多くの開発者が一度はつまづくこのCORSエラー。しかし、仕組みを正しく理解すれば、もう怖くありません。この記事では、CORSの基本から実践的な解決策まで、わかりやすく解説します。
+
+## CORSとは？- なぜ必要なのか
+CORSを理解するために、まずはその背景にある**同一オリジンポリシー (Same-Origin Policy, SOP)** を知る必要があります。
+
+### 同一オリジンポリシー（SOP）
+ブラウザは、ユーザーを悪意のあるサイトから守るため、**「あるオリジンから読み込まれた文書やスクリプトは、そのオリジンと同じリソースしか操作できない」**というセキュリティルールを設けています。これが同一オリジンポリシーです。
+
+ここでいう**オリジン**とは、以下の3つの組み合わせで決まります。
+- **プロトコル** (例: `https` )
+- **ドメイン** (例: `example.com` )
+- **ポート番号** (例: `:443` )
+
+例えば、ユーザーがログインしている `bank.com` の情報を、攻撃者のサイト `evil.com` が勝手にAPIを叩いて盗み見る…といった攻撃を、このSOPが防いでくれています。
+
+### CORSの役割
+SOPは非常に強力なセキュリティ機構ですが、現代のWeb開発では、APIサーバーとフロントエンドでドメインが違うなど、異なるオリジン間でリソースを共有したい場面が頻繁にあります。
+
+そこで登場するのが **CORS** です。CORSは、**サーバー側が「このオリジンからのリクエストは許可しますよ」と意思表示する**ことで、SOPの制限を安全に緩和する仕組みです。
+
+---
+
+## CORSの仕組み
+CORSには、大きく分けて2種類のリクエスト方式があります。
+
+### 1. シンプルリクエスト
+特定のシンプルな条件を満たすリクエストは、事前の確認なしで直接サーバーに送信されます。
+
+**✅ シンプルリクエストの条件:**
+- **メソッド:** `GET`, `HEAD`, `POST` のいずれか
+- **ヘッダー:** 以下のヘッダーのみ
+  - `Accept`, `Accept-Language`, `Content-Language`
+  - `Content-Type`（ただし、値が `application/x-www-form-urlencoded`, `multipart/form-data`, `text/plain` のいずれか）
+
+このリクエストに対し、サーバーがレスポンスヘッダーに `Access-Control-Allow-Origin` を含めて返せば、ブラウザは通信を許可します。
+
+```http
+// サーバーからのレスポンスヘッダー
+Access-Control-Allow-Origin: https://myapp.com // myapp.comからのリクエストを許可
+```
+
+### 2. プリフライトリクエスト
+シンプルリクエストの条件を満たさない複雑なリクエストの場合、ブラウザは実際のリクエストの前に、**OPTIONSメソッド**を使った**プリフライト（事前確認）リクエスト**を送信します。
+
+**✈️ プリフライトが必要になるケース:**
+- **メソッド:** `PUT`, `DELETE`, `PATCH` など
+- **ヘッダー:** `Authorization` のようなカスタムヘッダーを含む
+- **Content-Type:** `application/json` など
+
+**プリフライトリクエストの流れ:**
+1.  **ブラウザ → サーバー (プリフライト)**
+    「こういうメソッドとヘッダーで本番のリクエストを送りたいけど、大丈夫？」と `OPTIONS` メソッドで問い合わせます。
+
+    ```http
+    OPTIONS /api/data HTTP/1.1
+    Origin: https://myapp.com
+    Access-Control-Request-Method: POST
+    Access-Control-Request-Headers: Content-Type, Authorization
+    ```
+
+2.  **サーバー → ブラウザ (プリフライトへの応答)**
+    サーバーは許可するメソッドやヘッダーをレスポンスで返します。
+
+    ```http
+    Access-Control-Allow-Origin: https://myapp.com
+    Access-Control-Allow-Methods: GET, POST, PUT, DELETE
+    Access-Control-Allow-Headers: Content-Type, Authorization
+    Access-Control-Max-Age: 86400 // 86400秒間はプリフライトを省略してOK
+    ```
+
+3.  **ブラウザ → サーバー (実際のリクエスト)**
+    プリフライトの応答がOKなら、ブラウザは実際のリクエストを送信します。
+
+---
+
+## 開発者が押さえるべき重要ポイント
+
+### 1. `Access-Control-Allow-Origin: *` は万能ではない
+ワイルドカード `*` は一見便利ですが、**認証情報（CookieやAuthorizationヘッダー）を含むリクエストでは使えません。** 認証が必要なAPIでは、必ず具体的なオリジンを指定しましょう。
+
+### 2. 認証情報（Cookieなど）を伴うリクエスト
+Cookieや認証ヘッダーをリクエストに含めるには、クライアントとサーバー双方に設定が必要です。
+
+**クライアント側 (JavaScript):**
+`fetch` APIに `credentials: 'include'` オプションを追加します。
+```javascript
+fetch('https://api.example.com/data', {
+  credentials: 'include' // Cookieをリクエストに含める
+});
+```
+
+**サーバー側 (レスポンスヘッダー):**
+`Access-Control-Allow-Credentials: true` を明示的に返す必要があります。
+```http
+Access-Control-Allow-Origin: https://myapp.com // * は不可
+Access-Control-Allow-Credentials: true
+```
+
+### 3. エラーの詳細はブラウザのコンソールで
+CORSエラーに遭遇したら、まずブラウザの開発者ツール（コンソールやネットワークタブ）を確認しましょう。プリフライトリクエストが失敗しているのか、その後の実際のリクエストが問題なのかを切り分けるのが解決の第一歩です。
+
+### 4. ローカル開発と本番環境の違いを意識する
+開発環境ではプロキシやブラウザ拡張機能でCORSを回避しがちですが、それは一時的な対処療法です。本番環境で動かすためには、サーバー側での適切なCORS設定が不可欠です。開発の初期段階から本番を見据えた設定を心がけましょう。
+
+### 5. セキュリティは常に最優先で
+「とりあえず動いたからOK」と、安易に全オリジンを許可するのは非常に危険です。信頼できるオリジンのみをホワイトリスト形式で許可し、必要最小限の権限を付与する原則を守りましょう。
+
+---
+
+## 実践的なサーバーサイド実装 (Node.js/Express)
+
+### corsミドルウェアを使う（推奨）
+`cors` パッケージを使うのが最も簡単で安全です。
+
+```bash
+npm install cors
+```
+
+```javascript
+const express = require('express');
+const cors = require('cors');
+const app = express();
+
+const allowedOrigins = ['https://myapp.com', 'https://admin.myapp.com'];
+
+const corsOptions = {
+  // 動的にオリジンを検証
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // Cookieを許可
+  optionsSuccessStatus: 200 // プリフライトリクエストに200を返す
+};
+
+app.use(cors(corsOptions));
+
+// これでAPIエンドポイントはCORSに対応できます
+app.get('/api/data', (req, res) => {
+  res.json({ message: 'Success!' });
+});
+```
+
+### 手動でヘッダーを設定する場合
+ミドルウェアを使わず、自前で実装することも可能です。
+
+```javascript
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  const allowedOrigins = ['https://myapp.com'];
+
+  if (allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  
+  // プリフライトリクエストへの対応
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  
+  next();
+});
+```
+---
+
+## トラブルシューティング
+
+### よくあるエラーと解決策
+
+- **エラー:** `No 'Access-Control-Allow-Origin' header is present on the requested resource.`
+  - **原因:** サーバーが `Access-Control-Allow-Origin` ヘッダーを返していません。
+  - **解決策:** サーバー側のCORS設定を見直し、リクエスト元のオリジンを許可するヘッダーを追加してください。
+
+- **エラー:** `The value of the 'Access-Control-Allow-Credentials' header in the response is '' which must be 'true'.`
+  - **原因:** `credentials: 'include'` でリクエストを送っているのに、サーバーが `Access-Control-Allow-Credentials: true` を返していません。
+  - **解決策:** サーバーのレスポンスに `Access-Control-Allow-Credentials: true` を追加してください。この時 `Access-Control-Allow-Origin` に `*` は使えません。
+
+- **エラー:** `Method ... is not allowed by Access-Control-Allow-Methods in preflight response.`
+  - **原因:** プリフライトリクエストへの応答で、許可されていないHTTPメソッドを使おうとしています。
+  - **解決策:** サーバーの `Access-Control-Allow-Methods` ヘッダーに、使用したいメソッド (例: `PUT`, `DELETE`) を追加してください。
+
+## まとめ
+CORSは、Webのセキュリティを守りつつ、柔軟なアプリケーション開発を可能にするための重要な仕組みです。
+
+**CORSを乗りこなすためのポイント:**
+1.  **SOPが原則、CORSは例外** と心得る
+2.  **シンプルリクエスト**と**プリフライトリクエスト**の違いを理解する
+3.  **エラーはブラウザコンソールから** 詳しく調査する
+4.  **`*` と `credentials` の関係** を正しく把握する
+5.  **セキュリティを最優先**に、許可は最小限にする
+
+CORSを正しく理解し、適切に設定することで、エラーに悩まされることなく、安全で高機能なWebアプリケーションを構築していきましょう！
