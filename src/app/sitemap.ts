@@ -8,10 +8,7 @@ export default async function sitemap() {
     lastModified: post.date,
   }));
 
-  const routes = [
-    ...baseRoutes,
-    ...blogDates.map(date => `/blog/${date}`)
-  ].map((route) => ({
+  const routes = [...baseRoutes, ...blogDates.map((date) => `/blog/${date}`)].map((route) => ({
     url: `${process.env.WEBSITE_HOST_URL}${route}`,
     lastModified: new Date().toISOString().split("T")[0],
   }));

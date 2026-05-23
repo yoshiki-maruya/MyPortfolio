@@ -12,7 +12,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <SnackbarProvider>
         <Container>{children}</Container>
       </SnackbarProvider>
-      <GoogleAdsense pid={googleAdsensePid}/>
+      <GoogleAdsense pid={googleAdsensePid} />
       <GoogleAnalytics gaid={googleAnalyticsId} />
     </html>
   );

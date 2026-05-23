@@ -39,9 +39,9 @@ export default function About() {
         ・ラーメン（二郎系が好み、桜台二郎・ひばりヶ丘二郎が好き）
       </AboutCard>
       <AboutCard title="My Tech Stack">
-        <div className="relative overflow-x-auto sm:rounded-lg border">
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+        <div className="relative overflow-x-auto border sm:rounded-lg">
+          <table className="w-full text-left text-sm text-gray-500 rtl:text-right">
+            <thead className="bg-gray-50 text-xs uppercase text-gray-700">
               <tr>
                 <th scope="col" className="px-6 py-3">
                   Category
@@ -52,96 +52,86 @@ export default function About() {
               </tr>
             </thead>
             <tbody>
-              <tr className="bg-white border-b">
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                  Programming Languages<br/>/Library etc.
+              <tr className="border-b bg-white">
+                <th scope="row" className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
+                  Programming Languages
+                  <br />
+                  /Library etc.
                 </th>
                 <td className="px-6 py-4">
                   <p className="font-bold">Frontend</p>
-                  HTML, CSS, Tailwind CSS, JavaScript, TypeScript, React, Next.js, Redux, Cypress, Jest
+                  HTML, CSS, Tailwind CSS, JavaScript, TypeScript, React, Next.js, Redux, Cypress,
+                  Jest
                   <p className="font-bold">Backend</p>
                   C#, Python, TypeScript, C++
                 </td>
               </tr>
-              <tr className="bg-white border-b">
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+              <tr className="border-b bg-white">
+                <th scope="row" className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                   Infrastructure
                 </th>
-                <td className="px-6 py-4">
-                  Azure, Amazon Web Services
-                </td>
+                <td className="px-6 py-4">Azure, Amazon Web Services</td>
               </tr>
-              <tr className="bg-white border-b">
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+              <tr className="border-b bg-white">
+                <th scope="row" className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                   Middleware
                 </th>
-                <td className="px-6 py-4">
-                  Azure App Service, Azure Functions, AWS Lambda
-                </td>
+                <td className="px-6 py-4">Azure App Service, Azure Functions, AWS Lambda</td>
               </tr>
-              <tr className="bg-white border-b">
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+              <tr className="border-b bg-white">
+                <th scope="row" className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                   Messaging
                 </th>
-                <td className="px-6 py-4">
-                  Azure Service Bus
-                </td>
+                <td className="px-6 py-4">Azure Service Bus</td>
               </tr>
-              <tr className="bg-white border-b">
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+              <tr className="border-b bg-white">
+                <th scope="row" className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                   Database
                 </th>
                 <td className="px-6 py-4">
-                  Azure SQL DB(SQL Server), Azure Cosmos DB, MySQL, Cloud Firestore, Azure Storage(BLOB, Queue, Table), Amazon S3
+                  Azure SQL DB(SQL Server), Azure Cosmos DB, MySQL, Cloud Firestore, Azure
+                  Storage(BLOB, Queue, Table), Amazon S3
                 </td>
               </tr>
-              <tr className="bg-white border-b">
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+              <tr className="border-b bg-white">
+                <th scope="row" className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                   monitoring
                 </th>
-                <td className="px-6 py-4">
-                  Azure Monitor, Azure App Insights
-                </td>
+                <td className="px-6 py-4">Azure Monitor, Azure App Insights</td>
               </tr>
-              <tr className="bg-white border-b">
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+              <tr className="border-b bg-white">
+                <th scope="row" className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                   Environment setup
                 </th>
-                <td className="px-6 py-4">
-                  Docker
-                </td>
+                <td className="px-6 py-4">Docker</td>
               </tr>
-              <tr className="bg-white border-b">
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                  AI/Machine Learning<br/>/Search Service
+              <tr className="border-b bg-white">
+                <th scope="row" className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
+                  AI/Machine Learning
+                  <br />
+                  /Search Service
                 </th>
                 <td className="px-6 py-4">
                   Azure OpenAI Service, Azure AI Search, scikit-learn, PyTorch, OpenCV
                 </td>
               </tr>
-              <tr className="bg-white border-b">
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+              <tr className="border-b bg-white">
+                <th scope="row" className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                   CI/CD
                 </th>
-                <td className="px-6 py-4">
-                  Github Actions, Azure Pipelines
-                </td>
+                <td className="px-6 py-4">Github Actions, Azure Pipelines</td>
               </tr>
-              <tr className="bg-white border-b">
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+              <tr className="border-b bg-white">
+                <th scope="row" className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                   Code Management
                 </th>
-                <td className="px-6 py-4">
-                  Github
-                </td>
+                <td className="px-6 py-4">Github</td>
               </tr>
               <tr className="bg-white">
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                <th scope="row" className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                   Other Tools
                 </th>
-                <td className="px-6 py-4">
-                  Azure DevOps, Postman, Storybook
-                </td>
+                <td className="px-6 py-4">Azure DevOps, Postman, Storybook</td>
               </tr>
             </tbody>
           </table>

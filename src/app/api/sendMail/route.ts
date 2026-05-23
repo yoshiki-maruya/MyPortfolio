@@ -1,7 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { Resend } from "resend";
 
-
 export async function POST(req: NextRequest) {
   if (req.method === "POST") {
     const { name, email, message } = await req.json();

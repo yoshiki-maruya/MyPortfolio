@@ -2,9 +2,7 @@ import PostCard from "@/components/molecules/PostCard";
 import { allPosts } from "contentlayer/generated";
 
 export async function generateStaticParams() {
-  const categories = [
-    ...new Set<string>(allPosts.flatMap((post) => post.tags ?? [])),
-  ]
+  const categories = [...new Set<string>(allPosts.flatMap((post) => post.tags ?? []))];
   return categories.map((category) => ({ params: { category } }));
 }
 

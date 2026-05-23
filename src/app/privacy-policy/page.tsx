@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 export default function PrivacyPolicy() {
   return (
     <div>
-      <div className="mx-auto max-w-2xl py-8 px-6">
+      <div className="mx-auto max-w-2xl px-6 py-8">
         <h1 className="mb-8 text-center text-2xl font-black">プライバシーポリシー</h1>
         <p className="mb-8">
           当サイト（以下、「本サイト」といいます。）は、利用者の皆様のプライバシーを尊重し、個人情報の保護に努めています。
@@ -31,23 +31,39 @@ export default function PrivacyPolicy() {
         <p className="mb-8">
           本サイトでは、利用者の利便性向上およびコンテンツ改善のために、以下の情報を収集することがあります。
         </p>
-        ・お問い合わせフォームの送信内容<br />
-        ・Cookieを使用した利用状況の記録<br />
-        ・アクセス解析ツール（Google Analytics）による匿名データの収集<br />
-        <h2 className="mt-8 mb-8 text-center text-xl font-black">2. 情報の利用目的</h2>
+        ・お問い合わせフォームの送信内容
+        <br />
+        ・Cookieを使用した利用状況の記録
+        <br />
+        ・アクセス解析ツール（Google Analytics）による匿名データの収集
+        <br />
+        <h2 className="mb-8 mt-8 text-center text-xl font-black">2. 情報の利用目的</h2>
         <p className="mb-8">収集した情報は、以下の目的のために利用します。</p>
         <p className="mb-8">
-          ・本サイトの運営、管理、改善のため<br />
-          ・利用者からのお問い合わせに対応するため<br />
-          ・利用者にカスタマイズされたコンテンツを提供するため<br />
-          ・利用状況の分析およびサービス改善のため<br />
+          ・本サイトの運営、管理、改善のため
+          <br />
+          ・利用者からのお問い合わせに対応するため
+          <br />
+          ・利用者にカスタマイズされたコンテンツを提供するため
+          <br />
+          ・利用状況の分析およびサービス改善のため
+          <br />
         </p>
-        <h2 className="mt-8 mb-8 text-center text-xl font-black">3. Google Analyticsの利用について</h2>
+        <h2 className="mb-8 mt-8 text-center text-xl font-black">
+          3. Google Analyticsの利用について
+        </h2>
         <p className="mb-8">
-          本サイトでは、Google Analyticsを使用してサイトの利用状況を分析しています。Google AnalyticsはCookieを使用して、匿名のトラフィックデータを収集します。
+          本サイトでは、Google Analyticsを使用してサイトの利用状況を分析しています。Google
+          AnalyticsはCookieを使用して、匿名のトラフィックデータを収集します。
           この情報は、サイトのパフォーマンス向上のために使用され、個人を特定する目的では利用されません。
           Google Analyticsにより収集されたデータの詳細については、Googleの
-          <a className="font-bold hover:text-indigo-200" href="https://policies.google.com/privacy?hl=ja" target="_blank">プライバシーポリシー</a>
+          <a
+            className="font-bold hover:text-indigo-200"
+            href="https://policies.google.com/privacy?hl=ja"
+            target="_blank"
+          >
+            プライバシーポリシー
+          </a>
           を参照してください。
         </p>
         <h2 className="mb-8 text-center text-xl font-black">4. 個人情報の第三者提供について</h2>
@@ -56,9 +72,12 @@ export default function PrivacyPolicy() {
         </p>
         <h2 className="mb-8 text-center text-xl font-black">5. 免責事項</h2>
         <p className="mb-8">
-          ・本サイトに掲載されている情報の正確性には万全を期していますが、その内容の完全性や正確性を保証するものではありません。<br />
-          ・利用者が本サイトの情報を用いて行う一切の行為について、本サイトは一切の責任を負いません。<br />
-          ・本サイトからリンクされた他のウェブサイトの内容や、これらのサイトで提供されるサービスについても一切の責任を負いません。<br />
+          ・本サイトに掲載されている情報の正確性には万全を期していますが、その内容の完全性や正確性を保証するものではありません。
+          <br />
+          ・利用者が本サイトの情報を用いて行う一切の行為について、本サイトは一切の責任を負いません。
+          <br />
+          ・本サイトからリンクされた他のウェブサイトの内容や、これらのサイトで提供されるサービスについても一切の責任を負いません。
+          <br />
         </p>
         <h2 className="mb-8 text-center text-xl font-black">6. プライバシーポリシーの変更</h2>
         <p className="mb-8">

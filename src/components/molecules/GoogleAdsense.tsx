@@ -2,7 +2,7 @@ import Script from "next/script";
 
 export type IGoogleAdsense = {
   pid: string;
-}
+};
 
 const GoogleAdsense: React.FC<IGoogleAdsense> = ({ pid }) => {
   return (
@@ -12,6 +12,6 @@ const GoogleAdsense: React.FC<IGoogleAdsense> = ({ pid }) => {
       crossOrigin="anonymous"
     />
   );
-}
+};
 
 export default GoogleAdsense;

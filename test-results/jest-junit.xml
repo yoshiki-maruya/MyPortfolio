@@ -1,45 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="68" failures="0" errors="0" time="1.328">
-  <testsuite name="Footer" errors="0" failures="0" skipped="0" timestamp="2026-05-23T13:11:16" time="0.334" tests="5">
-    <testcase classname="Footer-should show copyright text" name="Footer-should show copyright text" time="0.013">
+<testsuites name="jest tests" tests="68" failures="0" errors="0" time="1.469">
+  <testsuite name="Footer" errors="0" failures="0" skipped="0" timestamp="2026-05-23T14:05:00" time="0.497" tests="5">
+    <testcase classname="Footer-should show copyright text" name="Footer-should show copyright text" time="0.014">
     </testcase>
     <testcase classname="Footer-should show privacy policy link" name="Footer-should show privacy policy link" time="0.006">
     </testcase>
-    <testcase classname="Footer-should link privacy policy to correct path" name="Footer-should link privacy policy to correct path" time="0.002">
+    <testcase classname="Footer-should link privacy policy to correct path" name="Footer-should link privacy policy to correct path" time="0.003">
     </testcase>
     <testcase classname="Footer-should have a GitHub link" name="Footer-should have a GitHub link" time="0.002">
     </testcase>
     <testcase classname="Footer-should have a LinkedIn link" name="Footer-should have a LinkedIn link" time="0.002">
     </testcase>
   </testsuite>
-  <testsuite name="SidebarItem" errors="0" failures="0" skipped="0" timestamp="2026-05-23T13:11:16" time="0.069" tests="7">
-    <testcase classname="SidebarItem › when text is undefined-should not show text" name="SidebarItem › when text is undefined-should not show text" time="0.001">
+  <testsuite name="Sidebar" errors="0" failures="0" skipped="0" timestamp="2026-05-23T14:05:00" time="0.111" tests="6">
+    <testcase classname="Sidebar-should show site name" name="Sidebar-should show site name" time="0.006">
     </testcase>
-    <testcase classname="SidebarItem › when text is provided-should render the text" name="SidebarItem › when text is provided-should render the text" time="0.002">
+    <testcase classname="Sidebar-should render all navigation items" name="Sidebar-should render all navigation items" time="0.004">
+    </testcase>
+    <testcase classname="Sidebar-should render nav links with correct hrefs" name="Sidebar-should render nav links with correct hrefs" time="0.002">
+    </testcase>
+    <testcase classname="Sidebar-should link site name to home page" name="Sidebar-should link site name to home page" time="0.003">
+    </testcase>
+    <testcase classname="Sidebar-should mark an item active when it is clicked" name="Sidebar-should mark an item active when it is clicked" time="0.006">
+    </testcase>
+    <testcase classname="Sidebar-should have no active item on the home page" name="Sidebar-should have no active item on the home page" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="CustomLink" errors="0" failures="0" skipped="0" timestamp="2026-05-23T14:05:01" time="0.074" tests="6">
+    <testcase classname="CustomLink-should render children" name="CustomLink-should render children" time="0.002">
+    </testcase>
+    <testcase classname="CustomLink-should render an anchor with the correct href" name="CustomLink-should render an anchor with the correct href" time="0.001">
+    </testcase>
+    <testcase classname="CustomLink › when className is provided-should apply className to the wrapper div" name="CustomLink › when className is provided-should apply className to the wrapper div" time="0.001">
+    </testcase>
+    <testcase classname="CustomLink › when className is not provided-should render wrapper div without class attribute" name="CustomLink › when className is not provided-should render wrapper div without class attribute" time="0.001">
+    </testcase>
+    <testcase classname="CustomLink › when onClick is provided-should call onClick when the link is clicked" name="CustomLink › when onClick is provided-should call onClick when the link is clicked" time="0.001">
+    </testcase>
+    <testcase classname="CustomLink › when onClick is not provided-should not throw when clicked" name="CustomLink › when onClick is not provided-should not throw when clicked" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="SidebarItem" errors="0" failures="0" skipped="0" timestamp="2026-05-23T14:05:01" time="0.058" tests="7">
+    <testcase classname="SidebarItem › when text is undefined-should not show text" name="SidebarItem › when text is undefined-should not show text" time="0.002">
+    </testcase>
+    <testcase classname="SidebarItem › when text is provided-should render the text" name="SidebarItem › when text is provided-should render the text" time="0.001">
     </testcase>
     <testcase classname="SidebarItem › when href is provided-should render an anchor with the correct href" name="SidebarItem › when href is provided-should render an anchor with the correct href" time="0.001">
     </testcase>
-    <testcase classname="SidebarItem › when active matches index-should apply active gradient styles" name="SidebarItem › when active matches index-should apply active gradient styles" time="0.001">
+    <testcase classname="SidebarItem › when active matches index-should apply active gradient styles" name="SidebarItem › when active matches index-should apply active gradient styles" time="0">
     </testcase>
-    <testcase classname="SidebarItem › when active does not match index-should apply inactive text styles" name="SidebarItem › when active does not match index-should apply inactive text styles" time="0">
+    <testcase classname="SidebarItem › when active does not match index-should apply inactive text styles" name="SidebarItem › when active does not match index-should apply inactive text styles" time="0.001">
     </testcase>
-    <testcase classname="SidebarItem › when onClick is provided-should call onClick when link is clicked" name="SidebarItem › when onClick is provided-should call onClick when link is clicked" time="0.003">
+    <testcase classname="SidebarItem › when onClick is provided-should call onClick when link is clicked" name="SidebarItem › when onClick is provided-should call onClick when link is clicked" time="0">
     </testcase>
     <testcase classname="SidebarItem › when onClick is not provided-should not throw when clicked" name="SidebarItem › when onClick is not provided-should not throw when clicked" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="Snackbar" errors="0" failures="0" skipped="0" timestamp="2026-05-23T13:11:16" time="0.058" tests="9">
+  <testsuite name="Snackbar" errors="0" failures="0" skipped="0" timestamp="2026-05-23T14:05:01" time="0.064" tests="9">
     <testcase classname="Snackbar › when open is true-should render the message text" name="Snackbar › when open is true-should render the message text" time="0.002">
     </testcase>
-    <testcase classname="Snackbar › when open is true-should render a close button" name="Snackbar › when open is true-should render a close button" time="0.001">
+    <testcase classname="Snackbar › when open is true-should render a close button" name="Snackbar › when open is true-should render a close button" time="0">
     </testcase>
-    <testcase classname="Snackbar › when open is true-should apply success variant color class" name="Snackbar › when open is true-should apply success variant color class" time="0">
+    <testcase classname="Snackbar › when open is true-should apply success variant color class" name="Snackbar › when open is true-should apply success variant color class" time="0.001">
     </testcase>
-    <testcase classname="Snackbar › when open is true-should apply error variant color class" name="Snackbar › when open is true-should apply error variant color class" time="0.001">
+    <testcase classname="Snackbar › when open is true-should apply error variant color class" name="Snackbar › when open is true-should apply error variant color class" time="0">
     </testcase>
-    <testcase classname="Snackbar › when open is true-should apply warning variant color class" name="Snackbar › when open is true-should apply warning variant color class" time="0">
+    <testcase classname="Snackbar › when open is true-should apply warning variant color class" name="Snackbar › when open is true-should apply warning variant color class" time="0.001">
     </testcase>
-    <testcase classname="Snackbar › when open is true-should apply info variant color class" name="Snackbar › when open is true-should apply info variant color class" time="0.001">
+    <testcase classname="Snackbar › when open is true-should apply info variant color class" name="Snackbar › when open is true-should apply info variant color class" time="0">
     </testcase>
     <testcase classname="Snackbar › when open is false-should render nothing" name="Snackbar › when open is false-should render nothing" time="0">
     </testcase>
@@ -48,76 +76,48 @@
     <testcase classname="Snackbar › when icon is provided-should render the icon inside the close button" name="Snackbar › when icon is provided-should render the icon inside the close button" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="CustomLink" errors="0" failures="0" skipped="0" timestamp="2026-05-23T13:11:16" time="0.074" tests="6">
-    <testcase classname="CustomLink-should render children" name="CustomLink-should render children" time="0.002">
+  <testsuite name="useSnackbar" errors="0" failures="0" skipped="0" timestamp="2026-05-23T14:05:01" time="0.054" tests="3">
+    <testcase classname="useSnackbar › when used inside SnackbarProvider-should return a function" name="useSnackbar › when used inside SnackbarProvider-should return a function" time="0.001">
     </testcase>
-    <testcase classname="CustomLink-should render an anchor with the correct href" name="CustomLink-should render an anchor with the correct href" time="0.001">
+    <testcase classname="useSnackbar › when used inside SnackbarProvider-should dispatch without throwing when called" name="useSnackbar › when used inside SnackbarProvider-should dispatch without throwing when called" time="0.002">
     </testcase>
-    <testcase classname="CustomLink › when className is provided-should apply className to the wrapper div" name="CustomLink › when className is provided-should apply className to the wrapper div" time="0">
-    </testcase>
-    <testcase classname="CustomLink › when className is not provided-should render wrapper div without class attribute" name="CustomLink › when className is not provided-should render wrapper div without class attribute" time="0">
-    </testcase>
-    <testcase classname="CustomLink › when onClick is provided-should call onClick when the link is clicked" name="CustomLink › when onClick is provided-should call onClick when the link is clicked" time="0.001">
-    </testcase>
-    <testcase classname="CustomLink › when onClick is not provided-should not throw when clicked" name="CustomLink › when onClick is not provided-should not throw when clicked" time="0.009">
+    <testcase classname="useSnackbar › when used inside SnackbarProvider-should return a stable callback reference across renders" name="useSnackbar › when used inside SnackbarProvider-should return a stable callback reference across renders" time="0">
     </testcase>
   </testsuite>
-  <testsuite name="useMediaQuery" errors="0" failures="0" skipped="0" timestamp="2026-05-23T13:11:16" time="0.054" tests="5">
-    <testcase classname="useMediaQuery › when window width is equal to breakpoint-should return true" name="useMediaQuery › when window width is equal to breakpoint-should return true" time="0.002">
+  <testsuite name="Tag" errors="0" failures="0" skipped="0" timestamp="2026-05-23T14:05:01" time="0.067" tests="3">
+    <testcase classname="Tag-should render tag text with # prefix" name="Tag-should render tag text with # prefix" time="0.002">
+    </testcase>
+    <testcase classname="Tag-should render an anchor with the correct href" name="Tag-should render an anchor with the correct href" time="0">
+    </testcase>
+    <testcase classname="Tag › when tag contains uppercase letters-should render the tag as-is" name="Tag › when tag contains uppercase letters-should render the tag as-is" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="useMediaQuery" errors="0" failures="0" skipped="0" timestamp="2026-05-23T14:05:01" time="0.06" tests="5">
+    <testcase classname="useMediaQuery › when window width is equal to breakpoint-should return true" name="useMediaQuery › when window width is equal to breakpoint-should return true" time="0.001">
     </testcase>
     <testcase classname="useMediaQuery › when window width is greater than breakpoint-should return true" name="useMediaQuery › when window width is greater than breakpoint-should return true" time="0">
     </testcase>
     <testcase classname="useMediaQuery › when window width is less than breakpoint-should return false" name="useMediaQuery › when window width is less than breakpoint-should return false" time="0">
     </testcase>
-    <testcase classname="useMediaQuery › when window is resized above breakpoint-should update to true" name="useMediaQuery › when window is resized above breakpoint-should update to true" time="0">
+    <testcase classname="useMediaQuery › when window is resized above breakpoint-should update to true" name="useMediaQuery › when window is resized above breakpoint-should update to true" time="0.001">
     </testcase>
     <testcase classname="useMediaQuery › when window is resized below breakpoint-should update to false" name="useMediaQuery › when window is resized below breakpoint-should update to false" time="0">
     </testcase>
   </testsuite>
-  <testsuite name="useSnackbar" errors="0" failures="0" skipped="0" timestamp="2026-05-23T13:11:16" time="0.057" tests="3">
-    <testcase classname="useSnackbar › when used inside SnackbarProvider-should return a function" name="useSnackbar › when used inside SnackbarProvider-should return a function" time="0.002">
-    </testcase>
-    <testcase classname="useSnackbar › when used inside SnackbarProvider-should dispatch without throwing when called" name="useSnackbar › when used inside SnackbarProvider-should dispatch without throwing when called" time="0.001">
-    </testcase>
-    <testcase classname="useSnackbar › when used inside SnackbarProvider-should return a stable callback reference across renders" name="useSnackbar › when used inside SnackbarProvider-should return a stable callback reference across renders" time="0">
-    </testcase>
-  </testsuite>
-  <testsuite name="Sidebar" errors="0" failures="0" skipped="0" timestamp="2026-05-23T13:11:16" time="0.159" tests="6">
-    <testcase classname="Sidebar-should show site name" name="Sidebar-should show site name" time="0.004">
-    </testcase>
-    <testcase classname="Sidebar-should render all navigation items" name="Sidebar-should render all navigation items" time="0.003">
-    </testcase>
-    <testcase classname="Sidebar-should render nav links with correct hrefs" name="Sidebar-should render nav links with correct hrefs" time="0.001">
-    </testcase>
-    <testcase classname="Sidebar-should link site name to home page" name="Sidebar-should link site name to home page" time="0.003">
-    </testcase>
-    <testcase classname="Sidebar-should mark an item active when it is clicked" name="Sidebar-should mark an item active when it is clicked" time="0.003">
-    </testcase>
-    <testcase classname="Sidebar-should have no active item on the home page" name="Sidebar-should have no active item on the home page" time="0.002">
-    </testcase>
-  </testsuite>
-  <testsuite name="AboutCard" errors="0" failures="0" skipped="0" timestamp="2026-05-23T13:11:16" time="0.051" tests="3">
-    <testcase classname="AboutCard-should render the title" name="AboutCard-should render the title" time="0.002">
+  <testsuite name="AboutCard" errors="0" failures="0" skipped="0" timestamp="2026-05-23T14:05:01" time="0.058" tests="3">
+    <testcase classname="AboutCard-should render the title" name="AboutCard-should render the title" time="0.001">
     </testcase>
     <testcase classname="AboutCard-should render children content" name="AboutCard-should render children content" time="0.001">
     </testcase>
-    <testcase classname="AboutCard-should render children as React nodes" name="AboutCard-should render children as React nodes" time="0">
+    <testcase classname="AboutCard-should render children as React nodes" name="AboutCard-should render children as React nodes" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="Tag" errors="0" failures="0" skipped="0" timestamp="2026-05-23T13:11:17" time="0.054" tests="3">
-    <testcase classname="Tag-should render tag text with # prefix" name="Tag-should render tag text with # prefix" time="0.002">
-    </testcase>
-    <testcase classname="Tag-should render an anchor with the correct href" name="Tag-should render an anchor with the correct href" time="0.001">
-    </testcase>
-    <testcase classname="Tag › when tag contains uppercase letters-should render the tag as-is" name="Tag › when tag contains uppercase letters-should render the tag as-is" time="0">
-    </testcase>
-  </testsuite>
-  <testsuite name="utilities/reducer" errors="0" failures="0" skipped="0" timestamp="2026-05-23T13:11:17" time="0.033" tests="7">
-    <testcase classname="utilities/reducer › ADD_SNACKBAR › when queue is empty-should add snackbar to queue" name="utilities/reducer › ADD_SNACKBAR › when queue is empty-should add snackbar to queue" time="0.001">
+  <testsuite name="utilities/reducer" errors="0" failures="0" skipped="0" timestamp="2026-05-23T14:05:01" time="0.032" tests="7">
+    <testcase classname="utilities/reducer › ADD_SNACKBAR › when queue is empty-should add snackbar to queue" name="utilities/reducer › ADD_SNACKBAR › when queue is empty-should add snackbar to queue" time="0">
     </testcase>
     <testcase classname="utilities/reducer › ADD_SNACKBAR › when snackbar with same key already exists-should not add duplicate and return same state reference" name="utilities/reducer › ADD_SNACKBAR › when snackbar with same key already exists-should not add duplicate and return same state reference" time="0">
     </testcase>
-    <testcase classname="utilities/reducer › ADD_SNACKBAR › when snackbar with different key exists-should append new snackbar" name="utilities/reducer › ADD_SNACKBAR › when snackbar with different key exists-should append new snackbar" time="0">
+    <testcase classname="utilities/reducer › ADD_SNACKBAR › when snackbar with different key exists-should append new snackbar" name="utilities/reducer › ADD_SNACKBAR › when snackbar with different key exists-should append new snackbar" time="0.001">
     </testcase>
     <testcase classname="utilities/reducer › REMOVE_SNACKBAR › when the key exists in queue-should remove the matching snackbar" name="utilities/reducer › REMOVE_SNACKBAR › when the key exists in queue-should remove the matching snackbar" time="0">
     </testcase>
@@ -125,10 +125,22 @@
     </testcase>
     <testcase classname="utilities/reducer › REMOVE_SNACKBAR › when queue is empty-should return empty queue" name="utilities/reducer › REMOVE_SNACKBAR › when queue is empty-should return empty queue" time="0">
     </testcase>
-    <testcase classname="utilities/reducer › unknown action type-should throw an error" name="utilities/reducer › unknown action type-should throw an error" time="0.005">
+    <testcase classname="utilities/reducer › unknown action type-should throw an error" name="utilities/reducer › unknown action type-should throw an error" time="0.003">
     </testcase>
   </testsuite>
-  <testsuite name="utilities/url" errors="0" failures="0" skipped="0" timestamp="2026-05-23T13:11:17" time="0.028" tests="9">
+  <testsuite name="utilities/number" errors="0" failures="0" skipped="0" timestamp="2026-05-23T14:05:01" time="0.028" tests="5">
+    <testcase classname="utilities/number › makePositiveInt › when the num is NaN-should return 0" name="utilities/number › makePositiveInt › when the num is NaN-should return 0" time="0.001">
+    </testcase>
+    <testcase classname="utilities/number › makePositiveInt › when the num is a positive integer-should return the num" name="utilities/number › makePositiveInt › when the num is a positive integer-should return the num" time="0">
+    </testcase>
+    <testcase classname="utilities/number › makePositiveInt › when the num is a negative value-should make it positive" name="utilities/number › makePositiveInt › when the num is a negative value-should make it positive" time="0">
+    </testcase>
+    <testcase classname="utilities/number › makePositiveInt › when the num is a negative value › when the num is a float value-should make it positive and rounded integer" name="utilities/number › makePositiveInt › when the num is a negative value › when the num is a float value-should make it positive and rounded integer" time="0">
+    </testcase>
+    <testcase classname="utilities/number › makePositiveInt › when the num is a float value-should make it rounded integer" name="utilities/number › makePositiveInt › when the num is a float value-should make it rounded integer" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="utilities/url" errors="0" failures="0" skipped="0" timestamp="2026-05-23T14:05:01" time="0.03" tests="9">
     <testcase classname="utilities/url › createUrl › when item is uppercase-should convert to lowercase with leading slash" name="utilities/url › createUrl › when item is uppercase-should convert to lowercase with leading slash" time="0">
     </testcase>
     <testcase classname="utilities/url › createUrl › when item contains whitespace-should remove all whitespace" name="utilities/url › createUrl › when item contains whitespace-should remove all whitespace" time="0">
@@ -139,25 +151,13 @@
     </testcase>
     <testcase classname="utilities/url › createUrl › when item is mixed case-should convert to lowercase" name="utilities/url › createUrl › when item is mixed case-should convert to lowercase" time="0">
     </testcase>
-    <testcase classname="utilities/url › createUrl › for each sidebarList item-createUrl(ABOUT) === /about" name="utilities/url › createUrl › for each sidebarList item-createUrl(ABOUT) === /about" time="0.001">
+    <testcase classname="utilities/url › createUrl › for each sidebarList item-createUrl(ABOUT) === /about" name="utilities/url › createUrl › for each sidebarList item-createUrl(ABOUT) === /about" time="0">
     </testcase>
     <testcase classname="utilities/url › createUrl › for each sidebarList item-createUrl(WORKS) === /works" name="utilities/url › createUrl › for each sidebarList item-createUrl(WORKS) === /works" time="0">
     </testcase>
     <testcase classname="utilities/url › createUrl › for each sidebarList item-createUrl(BLOG) === /blog" name="utilities/url › createUrl › for each sidebarList item-createUrl(BLOG) === /blog" time="0">
     </testcase>
     <testcase classname="utilities/url › createUrl › for each sidebarList item-createUrl(CONTACT) === /contact" name="utilities/url › createUrl › for each sidebarList item-createUrl(CONTACT) === /contact" time="0">
-    </testcase>
-  </testsuite>
-  <testsuite name="utilities/number" errors="0" failures="0" skipped="0" timestamp="2026-05-23T13:11:17" time="0.029" tests="5">
-    <testcase classname="utilities/number › makePositiveInt › when the num is NaN-should return 0" name="utilities/number › makePositiveInt › when the num is NaN-should return 0" time="0">
-    </testcase>
-    <testcase classname="utilities/number › makePositiveInt › when the num is a positive integer-should return the num" name="utilities/number › makePositiveInt › when the num is a positive integer-should return the num" time="0">
-    </testcase>
-    <testcase classname="utilities/number › makePositiveInt › when the num is a negative value-should make it positive" name="utilities/number › makePositiveInt › when the num is a negative value-should make it positive" time="0">
-    </testcase>
-    <testcase classname="utilities/number › makePositiveInt › when the num is a negative value › when the num is a float value-should make it positive and rounded integer" name="utilities/number › makePositiveInt › when the num is a negative value › when the num is a float value-should make it positive and rounded integer" time="0.001">
-    </testcase>
-    <testcase classname="utilities/number › makePositiveInt › when the num is a float value-should make it rounded integer" name="utilities/number › makePositiveInt › when the num is a float value-should make it rounded integer" time="0">
     </testcase>
   </testsuite>
 </testsuites>

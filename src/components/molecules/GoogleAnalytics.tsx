@@ -2,7 +2,7 @@ import Script from "next/script";
 
 export type IGoogleAnalytics = {
   gaid: string;
-}
+};
 
 const GoogleAnalytics: React.FC<IGoogleAnalytics> = ({ gaid }) => {
   return (
@@ -19,6 +19,6 @@ const GoogleAnalytics: React.FC<IGoogleAnalytics> = ({ gaid }) => {
       </Script>
     </>
   );
-}
+};
 
 export default GoogleAnalytics;
