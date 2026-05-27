@@ -1,5 +1,4 @@
 import { render, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom/jest-globals';
 import Snackbar from '@/components/atoms/Snackbar';
 import { describe, it, expect, jest } from '@jest/globals';
 

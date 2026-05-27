@@ -1,5 +1,4 @@
 import { render, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom/jest-globals';
 import CustomLink from '@/components/atoms/CustomLink';
 import { describe, it, expect, jest } from '@jest/globals';
 

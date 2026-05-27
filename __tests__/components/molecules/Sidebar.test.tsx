@@ -1,7 +1,6 @@
 import { render, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom/jest-globals';
 import Sidebar from '@/components/Sidebar';
-import { describe, it, expect, beforeEach } from '@jest/globals';
+import { describe, it, expect, beforeEach, jest } from '@jest/globals';
 
 let mockPathname = '/about';
 jest.mock('next/navigation', () => ({

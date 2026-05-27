@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react';
-import '@testing-library/jest-dom/jest-globals';
 import Tag from '@/components/atoms/Tag';
 import { describe, it, expect } from '@jest/globals';
 

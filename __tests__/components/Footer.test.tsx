@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react';
-import '@testing-library/jest-dom/jest-globals';
 import Footer from '@/components/Footer';
 import { describe, it, expect } from '@jest/globals';
 

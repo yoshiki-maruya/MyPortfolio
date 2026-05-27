@@ -1,5 +1,4 @@
 import { renderHook, act } from "@testing-library/react";
-import "@testing-library/jest-dom/jest-globals";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { describe, it, expect, beforeEach } from "@jest/globals";
 

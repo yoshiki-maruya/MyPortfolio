@@ -1,5 +1,4 @@
 import { renderHook, act } from "@testing-library/react";
-import "@testing-library/jest-dom/jest-globals";
 import useSnackbar from "@/hooks/useSnackbar";
 import SnackbarProvider from "@/providers/SnackbarProvider";
 import { describe, it, expect } from "@jest/globals";
