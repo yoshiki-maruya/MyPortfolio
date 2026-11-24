@@ -1,5 +1,6 @@
 import AboutCard from "@/components/molecules/AboutCard";
 import HomeAbout from "@/components/HomeAbout";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -25,6 +26,15 @@ export default function About() {
     <div className="mx-auto max-w-2xl px-6 py-8">
       <h1 className="mb-8 text-center text-2xl font-black">About</h1>
       <HomeAbout />
+      <div className="my-8 text-center">
+        <Image
+          className="mx-auto rounded-2xl border-4"
+          src="/profile.jpg"
+          alt="Yoshiki Maruya"
+          width="390"
+          height="472"
+        />
+      </div>
       <div className="border-2"></div>
       <AboutCard title="Profile">
         普段は外資系のITコンサル会社で働いているまるやきです。
